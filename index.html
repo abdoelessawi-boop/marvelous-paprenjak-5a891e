@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>الكتاب التفاعلي: الإشعاع الشمسي - العلوم المتكاملة 1ث</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Cairo', 'Inter', 'sans-serif'], mono: ['Inter', 'monospace'] } } }
+    };
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+  <style>
+    :root { box-sizing: border-box; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+    html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+    body { font-family: 'Cairo', 'Inter', sans-serif; }
+    .perspective-1000 { perspective: 1000px; }
+    .flip-card-inner { transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+    .flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front, .flip-card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .flip-card-back { transform: rotateY(180deg); }
+    .handwritten-note { border-right: 4px solid #f59e0b; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); }
+    .dark .handwritten-note { background: linear-gradient(135deg, #451a03 0%, #78350f 100%); border-right-color: #fbbf24; }
+    .spectrum-gradient { background: linear-gradient(to left, #7e22ce 0%, #4338ca 16%, #2563eb 33%, #16a34a 50%, #eab308 66%, #ea580c 83%, #dc2626 100%); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-300">
+
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-b border-slate-200 dark:border-slate-800 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-amber-400 via-orange-500 to-sky-600 flex items-center justify-center text-white shadow-md font-black text-xl">☀️</div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-100 text-sky-800 dark:bg-sky-900/60 dark:text-sky-300">الدرس 8 • ص 155–159</span>
+            <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">العلوم المتكاملة • 1 ث</span>
+          </div>
+          <h1 class="text-lg md:text-xl font-black text-slate-900 dark:text-white">الكتاب التفاعلي: الإشعاع الشمسي والبيئات المائية</h1>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="hidden md:flex items-center gap-2 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-xl">
+          <span class="text-xs font-bold text-slate-600 dark:text-slate-300">تقدم الدراسة:</span>
+          <div class="w-28 h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+            <div id="readingProgressBar" class="h-full bg-gradient-to-l from-emerald-500 to-sky-500 transition-all duration-500" style="width: 14%"></div>
+          </div>
+          <span id="readingProgressText" class="text-xs font-black text-sky-600 dark:text-sky-400">1 / 7</span>
+        </div>
+        <button id="toggleNotesBtn" type="button" class="text-xs sm:text-sm font-bold px-3 py-2 rounded-xl bg-amber-100 text-amber-900 dark:bg-amber-900/50 dark:text-amber-200 hover:bg-amber-200 transition flex items-center gap-1.5" title="إظهار أو إخفاء ملاحظات المعلم اليدوية">
+          <span>✍️</span><span id="toggleNotesLabel">ملاحظات المعلم: مفعّلة</span>
+        </button>
+        <button id="toggleThemeBtn" type="button" class="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="تبديل الوضع الليلي / النهاري">
+          <span id="themeIcon" class="text-lg">🌙</span>
+        </button>
+      </div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 pb-2 overflow-x-auto">
+      <nav class="flex items-center gap-1.5 min-w-max" aria-label="فصول الكتاب">
+        <button type="button" data-page="1" class="chapter-tab"><span>1️⃣</span><span>ص 155: الطيف والانعكاس</span></button>
+        <button type="button" data-page="2" class="chapter-tab"><span>2️⃣</span><span>ص 156: المناطق الضوئية والغواص</span></button>
+        <button type="button" data-page="3" class="chapter-tab"><span>3️⃣</span><span>ص 157: اختبر نفسك 19 والتوازن البيئي</span></button>
+        <button type="button" data-page="4" class="chapter-tab"><span>4️⃣</span><span>ص 158: المرجان وحرارة المياه</span></button>
+        <button type="button" data-page="5" class="chapter-tab"><span>5️⃣</span><span>ص 159: تيار الخليج واختبر نفسك 20</span></button>
+        <button type="button" data-page="6" class="chapter-tab"><span>🃏</span><span>بطاقات المراجعة الذكية</span></button>
+        <button type="button" data-page="7" class="chapter-tab"><span>🏆</span><span>الاختبار الشامل (12 سؤال)</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6">
+
+    <!-- PAGE 1 -->
+    <section id="book-page-1" class="book-page space-y-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-amber-500 via-orange-500 to-sky-700 text-white p-6 md:p-8 shadow-lg">
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2 max-w-2xl">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">صفحة 155 • بداية الدرس الثامن</span>
+            <h2 class="text-2xl md:text-4xl font-black">الإشعاع الشمسي والطيف الكهرومغناطيسي</h2>
+            <p class="text-white/90 text-sm md:text-base leading-relaxed">
+              الإشعاع الشمسي هو الطاقة الصادرة من الشمس، ويمثل <strong>المصدر الرئيسي للطاقة على الأرض</strong>. تعرّف تفاعلياً على طبيعة الموجات الكهرومغناطيسية، مكونات الطيف، وكيف تتصرف أشعة الشمس عند سقوطها على سطح الماء.
+            </p>
+          </div>
+          <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-center shrink-0">
+            <div class="text-xs text-amber-100 font-bold mb-1">سرعة الموجات في الفراغ</div>
+            <div class="text-2xl font-black font-mono" dir="ltr">3 × 10⁸ m/s</div>
+            <div class="text-xs text-white/80 mt-1">ثابتة لجميع الموجات الكهرومغناطيسية</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm border border-slate-200 dark:border-slate-800 space-y-4">
+          <div class="flex items-center gap-2 text-sky-600 dark:text-sky-400 font-extrabold text-lg"><span>📡</span><h3>طبيعة الإشعاع الشمسي والموجات الكهرومغناطيسية</h3></div>
+          <ul class="space-y-3 text-slate-700 dark:text-slate-300 leading-relaxed text-sm md:text-base">
+            <li class="flex items-start gap-2.5"><span class="text-amber-500 font-black mt-1">●</span>
+              <span>ينتشر الإشعاع الشمسي على هيئة <strong>موجات كهرومغناطيسية</strong>، ويمثل <strong>الضوء المرئي</strong> جزءاً صغيراً فقط من الطيف الكهرومغناطيسي.</span></li>
+            <li class="flex items-start gap-2.5"><span class="text-amber-500 font-black mt-1">●</span>
+              <span><strong>خلفية علمية (الموجات الكهرومغناطيسية):</strong> نوع من الموجات يتكون من <strong>مجالين متعامدين</strong> أحدهما <strong>كهربي</strong> والآخر <strong>مغناطيسي</strong> يتذبذبان معاً وفي نفس الطور، وكلاهما متعامد على اتجاه انتشار الموجة.</span></li>
+            <li class="flex items-start gap-2.5"><span class="text-amber-500 font-black mt-1">●</span>
+              <span>تختلف الموجات الكهرومغناطيسية عن بعضها في <strong>الطول الموجي (λ)</strong> و<strong>التردد (ν)</strong>، ولكنها جميعاً تنتشر في الفراغ <strong>بسرعة ثابتة (3 × 10⁸ m/s)</strong> حتى تصل لكوكب الأرض.</span></li>
+          </ul>
+          <div class="teacher-note-box handwritten-note rounded-2xl p-4 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-amber-900 dark:text-amber-300 flex items-center gap-1">✍️ ملاحظات المعلم اليدوية (ص 155)</span>
+              <span class="text-xs font-mono bg-amber-200/80 dark:bg-amber-800 px-2 py-0.5 rounded text-amber-950 dark:text-amber-100">علاقات هامة جداً للامتحان</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              <div class="bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl text-center">
+                <div class="font-mono font-bold text-base text-rose-600 dark:text-rose-400" dir="ltr">ν ∝ 1 / λ</div>
+                <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mt-1">علاقة عكسية بين التردد (ν) والطول الموجي (λ)</div>
+              </div>
+              <div class="bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl text-center">
+                <div class="font-mono font-bold text-base text-emerald-600 dark:text-emerald-400" dir="ltr">E ∝ ν</div>
+                <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mt-1">علاقة طردية بين طاقة الموجة (E) والتردد (ν)</div>
+              </div>
+              <div class="bg-white/80 dark:bg-slate-900/80 p-3 rounded-xl text-center">
+                <div class="font-bold text-sm text-sky-600 dark:text-sky-400">السرعة = المسافة ÷ الزمن</div>
+                <div class="text-xs font-bold text-slate-700 dark:text-slate-300 mt-1">تحويل النانومتر: <span dir="ltr" class="font-mono">1 nm = 10⁻⁹ m</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-gradient-to-b from-indigo-50 to-sky-50 dark:from-slate-900 dark:to-slate-800/90 rounded-3xl p-6 border border-indigo-200 dark:border-slate-700 flex flex-col justify-between space-y-4">
+          <div class="space-y-3">
+            <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-indigo-600 text-white text-xs font-bold">💡 سؤال ذكاء من هامش ص 155</span>
+            <h4 class="text-lg font-black text-slate-900 dark:text-white leading-snug">لو عندنا موجة راديو وموجة أشعة سينية، مين فيهم بيوصل للأرض أسرع من الشمس؟</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-400">فكّر قبل إظهار الجواب: أشعة إكس ترددها وطاقتها أعلى بكثير من الراديو، فهل تسبقها؟</p>
+          </div>
+          <div class="space-y-3">
+            <button type="button" data-reveal="margin-ans-1" class="reveal-btn w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm transition shadow-sm">👁️ إظهار الجواب والتفسير</button>
+            <div id="margin-ans-1" class="hidden bg-white dark:bg-slate-900 p-4 rounded-2xl border border-indigo-200 dark:border-slate-700 text-sm space-y-1.5">
+              <div class="font-black text-emerald-600 dark:text-emerald-400">✅ الجواب: الاتنين بيوصلوا في نفس الوقت وبنفس السرعة!</div>
+              <p class="text-slate-700 dark:text-slate-300 text-xs leading-relaxed"><strong>السبب العلمي:</strong> لأن جميع الموجات الكهرومغناطيسية لها نفس السرعة الثابتة في الفراغ وهي <span dir="ltr" class="font-mono font-bold">3 × 10⁸ m/s</span> مهما اختلف ترددها أو طولها الموجي.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIM 1 -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-800 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div>
+            <span class="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase">محاكاة تفاعلية 1 • ص 155</span>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white">مستكشف الطيف الكهرومغناطيسي وألوان الطيف المرئي</h3>
+          </div>
+          <div class="flex items-center gap-2 text-xs font-bold">
+            <span class="px-2.5 py-1 rounded-lg bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300">➡️ اتجاه زيادة التردد والطاقة (من الراديو إلى جاما)</span>
+            <span class="px-2.5 py-1 rounded-lg bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300">⬅️ اتجاه زيادة الطول الموجي (من جاما إلى الراديو)</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2" id="spectrumButtonsContainer">
+          <button type="button" data-wave="gamma" class="spectrum-btn p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-center transition hover:scale-105">
+            <div class="text-xs font-black text-purple-700 dark:text-purple-300">1. أشعة جاما</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1" dir="ltr">10⁻¹⁶..10⁻¹² m</div>
+          </button>
+          <button type="button" data-wave="xray" class="spectrum-btn p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-center transition hover:scale-105">
+            <div class="text-xs font-black text-indigo-700 dark:text-indigo-300">2. الأشعة السينية</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1" dir="ltr">10⁻¹⁰..10⁻⁸ m</div>
+          </button>
+          <button type="button" data-wave="uv" class="spectrum-btn p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-center transition hover:scale-105">
+            <div class="text-xs font-black text-violet-700 dark:text-violet-300">3. فوق البنفسجية</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1" dir="ltr">&lt; 400 nm</div>
+          </button>
+          <button type="button" data-wave="visible" class="spectrum-btn p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-center transition hover:scale-105 ring-2 ring-amber-400">
+            <div class="text-xs font-black text-amber-600 dark:text-amber-300">4. الضوء المرئي 🌈</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1" dir="ltr">400–700 nm</div>
+          </button>
+          <button type="button" data-wave="ir" class="spectrum-btn p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-center transition hover:scale-105">
+            <div class="text-xs font-black text-rose-700 dark:text-rose-300">5. تحت الحمراء</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1" dir="ltr">&gt; 700 nm</div>
+          </button>
+          <button type="button" data-wave="micro" class="spectrum-btn p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-center transition hover:scale-105">
+            <div class="text-xs font-black text-orange-700 dark:text-orange-300">6. الميكرومترية</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1" dir="ltr">10⁻³..10⁰ m</div>
+          </button>
+          <button type="button" data-wave="radio" class="spectrum-btn p-3 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-center transition hover:scale-105">
+            <div class="text-xs font-black text-sky-700 dark:text-sky-300">7. موجات الراديو</div>
+            <div class="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1" dir="ltr">10⁰..10⁸ m</div>
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+          <div class="lg:col-span-7 space-y-3">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="waveBadge" class="px-3 py-1 rounded-full text-xs font-black bg-amber-500 text-white">الضوء المرئي (Visible Light)</span>
+              <span id="waveVisibilityBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300">👁️ يُرى بالعين البشرية</span>
+            </div>
+            <h4 id="waveTitle" class="text-xl font-black text-slate-900 dark:text-white">الضوء المرئي (400 nm إلى 700 nm)</h4>
+            <p id="waveDesc" class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">يمثل جزءاً صغيراً من الطيف الكهرومغناطيسي، ويتكون من 7 ألوان تبدأ بالبنفسجي (400 nm) وتنتهي بالأحمر (700 nm). الألوان الباردة (الأزرق والبنفسجي) تخترق الماء أعمق من الألوان الدافئة.</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-2">
+              <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-bold">نطاق الطول الموجي (λ)</div>
+                <div id="waveLambda" class="text-sm font-black font-mono text-sky-600 dark:text-sky-400 mt-0.5" dir="ltr">400 nm – 700 nm</div>
+              </div>
+              <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-bold">نطاق التردد (ν)</div>
+                <div id="waveFreq" class="text-sm font-black font-mono text-rose-600 dark:text-rose-400 mt-0.5" dir="ltr">~4.3×10¹⁴ – 7.5×10¹⁴ Hz</div>
+              </div>
+              <div class="bg-white dark:bg-slate-900 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+                <div class="text-[11px] text-slate-500 dark:text-slate-400 font-bold">الطاقة والاختراق للماء</div>
+                <div id="waveEnergy" class="text-xs font-black text-amber-600 dark:text-amber-400 mt-0.5">متوسطة (ينفذ الأزرق حتى 100m)</div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-5 bg-slate-900 rounded-2xl p-4 text-white flex flex-col items-center justify-center">
+            <div class="text-xs font-bold text-slate-300 mb-2 flex items-center justify-between w-full">
+              <span>تمثيل شكل الموجة</span>
+              <span id="waveCycleLabel" class="text-amber-400">تردد متوسط (مرئي)</span>
+            </div>
+            <svg id="waveSvg" viewBox="0 0 400 110" class="w-full h-28 overflow-visible">
+              <path id="wavePathElectric" d="" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" />
+              <path id="wavePathMagnetic" d="" fill="none" stroke="#f43f5e" stroke-width="2" stroke-dasharray="5,4" stroke-linecap="round" />
+            </svg>
+            <div class="flex items-center gap-4 text-[11px] text-slate-300 mt-2">
+              <span class="flex items-center gap-1"><span class="w-3 h-1 bg-sky-400 inline-block rounded"></span> مجال كهربي</span>
+              <span class="flex items-center gap-1"><span class="w-3 h-1 bg-rose-500 inline-block rounded"></span> مجال مغناطيسي متعامد</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <h4 class="text-sm font-black text-slate-800 dark:text-slate-200">🔍 اضغط على أي لون من ألوان الطيف المرئي (400 nm – 700 nm) لمقارنة خصائصه:</h4>
+            <span class="text-xs text-slate-500 dark:text-slate-400">فوق البنفسجية أعلى تردد وطاقة من المرئي • تحت الحمراء أقل تردد وطاقة وأكبر طول موجي</span>
+          </div>
+          <div class="h-4 rounded-full spectrum-gradient shadow-inner"></div>
+          <div class="grid grid-cols-2 sm:grid-cols-7 gap-2">
+            <button type="button" data-color-idx="0" class="vis-color-btn p-2.5 rounded-xl bg-purple-700 text-white text-center font-bold text-xs shadow hover:opacity-90 transition"><div>البنفسجي</div><div class="font-mono text-[11px] opacity-90" dir="ltr">~400 nm</div></button>
+            <button type="button" data-color-idx="1" class="vis-color-btn p-2.5 rounded-xl bg-indigo-700 text-white text-center font-bold text-xs shadow hover:opacity-90 transition"><div>النيلي</div><div class="font-mono text-[11px] opacity-90" dir="ltr">~445 nm</div></button>
+            <button type="button" data-color-idx="2" class="vis-color-btn p-2.5 rounded-xl bg-blue-600 text-white text-center font-bold text-xs shadow hover:opacity-90 transition"><div>الأزرق</div><div class="font-mono text-[11px] opacity-90" dir="ltr">~500 nm</div></button>
+            <button type="button" data-color-idx="3" class="vis-color-btn p-2.5 rounded-xl bg-green-600 text-white text-center font-bold text-xs shadow hover:opacity-90 transition"><div>الأخضر</div><div class="font-mono text-[11px] opacity-90" dir="ltr">~540 nm</div></button>
+            <button type="button" data-color-idx="4" class="vis-color-btn p-2.5 rounded-xl bg-yellow-500 text-slate-950 text-center font-bold text-xs shadow hover:opacity-90 transition"><div>الأصفر</div><div class="font-mono text-[11px] opacity-90" dir="ltr">~600 nm</div></button>
+            <button type="button" data-color-idx="5" class="vis-color-btn p-2.5 rounded-xl bg-orange-600 text-white text-center font-bold text-xs shadow hover:opacity-90 transition"><div>البرتقالي</div><div class="font-mono text-[11px] opacity-90" dir="ltr">~640 nm</div></button>
+            <button type="button" data-color-idx="6" class="vis-color-btn p-2.5 rounded-xl bg-red-600 text-white text-center font-bold text-xs shadow hover:opacity-90 transition"><div>الأحمر</div><div class="font-mono text-[11px] opacity-90" dir="ltr">~700 nm</div></button>
+          </div>
+          <div id="visibleColorDetailBox" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+            <span id="visibleColorText">🔵 <strong>اللون الأزرق (~500 nm):</strong> من الألوان الباردة ذات الأطوال الموجية القصيرة والطاقة العالية؛ يخترق مياه المحيط لأعماق كبيرة (حتى 100m في المياه الصافية) ويتشتت ليعطي البحر لونه الأزرق.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIM 2 -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-800 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div>
+            <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase">محاكاة تفاعلية 2 • انتشار الإشعاع الشمسي في الماء (ص 155)</span>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white">تأثير زاوية سقوط أشعة الشمس على الانعكاس والاختراق</h3>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button type="button" id="presetSunriseBtn" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-orange-100 text-orange-900 dark:bg-orange-900/50 dark:text-orange-200 hover:bg-orange-200 transition">🌅 وقت الشروق / الغروب (مائلة 20°)</button>
+            <button type="button" id="presetNoonBtn" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-100 text-sky-900 dark:bg-sky-900/50 dark:text-sky-200 hover:bg-sky-200 transition">☀️ وقت الظهر (عمودية 90°)</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-6 space-y-4">
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              عندما تسقط أشعة الشمس على سطح الماء: <strong>(1) ينعكس جزء</strong> منها إلى الغلاف الجوي حسب <strong>زاوية السقوط</strong>، و<strong>(2) يخترق الباقي الماء</strong> فيُمتص جزء بواسطة الماء والمواد العالقة والنباتات المائية والطحالب والهائمات النباتية، <strong>ويتشتت جزء آخر</strong> فتقل شدته تدريجياً بزيادة العمق.
+            </p>
+            <div class="bg-slate-50 dark:bg-slate-800/70 p-4 rounded-2xl space-y-3 border border-slate-200 dark:border-slate-700">
+              <div class="flex items-center justify-between gap-2">
+                <label for="sunAngleSlider" class="text-sm font-black text-slate-800 dark:text-slate-200">زاوية سقوط الأشعة مع سطح الماء:</label>
+                <span id="sunAngleValue" class="px-3 py-1 rounded-lg bg-sky-600 text-white font-bold text-sm">90° (عمودية)</span>
+              </div>
+              <input id="sunAngleSlider" type="range" min="15" max="90" value="90" class="w-full accent-amber-500 cursor-pointer" />
+              <div class="flex justify-between text-[11px] font-bold text-slate-500">
+                <span>15° (شروق/غروب)</span><span>45° (مائلة متوسطة)</span><span>90° (الظهر)</span>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60">
+                <div class="text-xs font-bold text-amber-800 dark:text-amber-300">كمية الضوء المنعكسة</div>
+                <div id="reflectedAmountLabel" class="text-lg font-black text-amber-600 dark:text-amber-400 mt-1">صغيرة جداً (~2%)</div>
+                <div class="w-full h-2 bg-amber-200 dark:bg-amber-900 rounded-full mt-2 overflow-hidden"><div id="reflectedBar" class="h-full bg-amber-500 transition-all duration-300" style="width: 2%"></div></div>
+              </div>
+              <div class="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/60">
+                <div class="text-xs font-bold text-sky-800 dark:text-sky-300">كمية الضوء المخترقة للماء</div>
+                <div id="penetratedAmountLabel" class="text-lg font-black text-sky-600 dark:text-sky-400 mt-1">كبيرة جداً (~98%)</div>
+                <div class="w-full h-2 bg-sky-200 dark:bg-sky-900 rounded-full mt-2 overflow-hidden"><div id="penetratedBar" class="h-full bg-sky-500 transition-all duration-300" style="width: 98%"></div></div>
+              </div>
+            </div>
+            <div class="teacher-note-box handwritten-note rounded-2xl p-4 space-y-2">
+              <div class="text-xs font-black text-amber-900 dark:text-amber-300">🌅 علل من هامش ص 155: ليه بنشوف انعكاس الشمس على مية البحر قوي جداً وقريب من شكل المراية وقت الشروق والغروب، ومش بنشوفه بنفس القوة الظهر؟</div>
+              <p class="text-xs text-slate-800 dark:text-slate-200 leading-relaxed"><strong>الجواب:</strong> لأن أشعة الشمس وقت الشروق والغروب تكون <strong>مائلة</strong> فيكون الانعكاس <strong>كبيراً</strong>، بينما وقت الظهر تكون <strong>عمودية تقريباً (90°)</strong> فيكون الانعكاس <strong>صغيراً</strong> ومعظم الضوء يخترق المية!</p>
+            </div>
+          </div>
+          <div class="lg:col-span-6 bg-slate-900 rounded-3xl p-4 border border-slate-800">
+            <svg id="sunAngleSvg" viewBox="0 0 420 260" class="w-full h-64 rounded-2xl overflow-hidden">
+              <rect x="0" y="0" width="420" height="140" fill="#0f172a" />
+              <rect x="0" y="140" width="420" height="120" fill="#0369a1" />
+              <line x1="0" y1="140" x2="420" y2="140" stroke="#38bdf8" stroke-width="3" />
+              <text x="330" y="133" fill="#bae6fd" font-size="11" font-weight="bold">سطح الماء</text>
+              <circle cx="210" cy="140" r="5" fill="#fbbf24" />
+              <line id="svgIncomingRay" x1="210" y1="25" x2="210" y2="140" stroke="#fbbf24" stroke-width="5" stroke-linecap="round" />
+              <circle id="svgSunPos" cx="210" cy="25" r="16" fill="#f59e0b" stroke="#fef08a" stroke-width="3" />
+              <line id="svgReflectedRay" x1="210" y1="140" x2="210" y2="35" stroke="#fde047" stroke-width="1.5" stroke-dasharray="5,4" />
+              <line id="svgPenetratedRay" x1="210" y1="140" x2="210" y2="245" stroke="#38bdf8" stroke-width="6" stroke-linecap="round" />
+              <text id="svgAngleLabel" x="225" y="125" fill="#fef08a" font-size="12" font-weight="bold">الزاوية = 90° (عمودية)</text>
+              <text id="svgPenLabel" x="222" y="210" fill="#e0f2fe" font-size="12" font-weight="bold">اختراق كبير للضوء</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section id="book-page-2" class="book-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-sky-600 via-blue-700 to-slate-900 text-white p-6 md:p-8 shadow-lg">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2 max-w-2xl">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">صفحة 156 • التدرج الضوئي في المحيطات</span>
+            <h2 class="text-2xl md:text-4xl font-black">المناطق الضوئية في الماء ونفاذ الألوان</h2>
+            <p class="text-white/90 text-sm md:text-base leading-relaxed">كلما زاد عمق الماء تقل شدة الضوء تدريجياً، وهذا التدرج الضوئي يكوّن <strong>3 مناطق ضوئية مختلفة</strong> في المحيطات تتوزع فيها الكائنات البحرية وفقاً لقدرتها على التكيف مع كمية الضوء المتاحة.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-center shrink-0">
+            <div class="text-xs text-sky-200 font-bold mb-1">العلاقة بين العمق وشدة الإضاءة</div>
+            <div class="text-lg font-black text-amber-300">علاقة عكسية 📉</div>
+            <div class="text-xs text-white/80 mt-1">كلما زاد العمق تقل شدة الإضاءة</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="bg-gradient-to-b from-sky-50 to-white dark:from-sky-950/40 dark:to-slate-900 rounded-3xl p-6 border border-sky-200 dark:border-sky-800/60 space-y-3">
+          <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full bg-sky-600 text-white text-xs font-black">1. المنطقة المضاءة (السطحية)</span><span class="text-xs font-mono font-bold text-sky-700 dark:text-sky-300" dir="ltr">0 – 200 m</span></div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white">منطقة البناء الضوئي والحياة المزدهرة</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">يصلها <strong>ضوء كافٍ لعملية التمثيل الضوئي (البناء الضوئي)</strong>، لذلك تتركز فيها الهائمات النباتية والطحالب والشعاب المرجانية ومعظم الكائنات البحرية.</p>
+          <div class="teacher-note-box handwritten-note p-3 rounded-xl text-xs font-bold text-amber-950 dark:text-amber-200">✍️ ملاحظة ص 156: يصلها ضوء كافٍ لعملية البناء الضوئي (التمثيل الضوئي).</div>
+        </div>
+        <div class="bg-gradient-to-b from-indigo-50 to-white dark:from-indigo-950/40 dark:to-slate-900 rounded-3xl p-6 border border-indigo-200 dark:border-indigo-800/60 space-y-3">
+          <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full bg-indigo-700 text-white text-xs font-black">2. المنطقة الشفقية (متوسطة العمق)</span><span class="text-xs font-mono font-bold text-indigo-700 dark:text-indigo-300" dir="ltr">200 – 1000 m</span></div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white">منطقة شبه مظلمة (ضوء ضئيل جداً)</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">تصلها كمية ضئيلة جداً من الضوء لا تكفي لقيام النباتات بعملية البناء الضوئي، وتعيش فيها كائنات متكيفة مع الإضاءة الخافتة.</p>
+        </div>
+        <div class="bg-gradient-to-b from-slate-200 to-white dark:from-slate-900 dark:to-slate-950 rounded-3xl p-6 border border-slate-300 dark:border-slate-800 space-y-3">
+          <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full bg-slate-900 text-white dark:bg-slate-700 text-xs font-black">3. المنطقة المظلمة (الأعماق)</span><span class="text-xs font-mono font-bold text-slate-600 dark:text-slate-400" dir="ltr">&gt; 1000 m</span></div>
+          <h3 class="text-lg font-black text-slate-900 dark:text-white">انعدام الضوء تماماً</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">لا يصل إليها أي إشعاع شمسي، وتتميز ببرودة شديدة وظلام دامس، ولا تتأثر الكائنات فيها بتغير الفصول خلال العام.</p>
+        </div>
+      </div>
+
+      <!-- SIM 3 -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 shadow-sm border border-slate-200 dark:border-slate-800 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div>
+            <span class="text-xs font-bold text-sky-600 dark:text-sky-400 uppercase">محاكاة تفاعلية 3 • انتشار الإشعاع في المنطقة المضاءة (ص 156)</span>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white">محاكي الغواص وأعماق المحيط (امتصاص الأشعة والألوان)</h3>
+          </div>
+          <div class="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl">
+            <button type="button" id="waterClearBtn" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-600 text-white shadow transition">🌊 مياه استوائية صافية</button>
+            <button type="button" id="waterTurbidBtn" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">🪨 مياه ساحلية ضحلة عكرة</button>
+          </div>
+        </div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-xs font-bold text-slate-500">أعماق هامة في الكتاب:</span>
+          <button type="button" data-depth="0.1" class="depth-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 hover:bg-rose-200 transition">عمق 10 cm (الأشعة تحت الحمراء)</button>
+          <button type="button" data-depth="10" class="depth-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 hover:bg-amber-200 transition">عمق 10 m (امتصاص &gt;50%)</button>
+          <button type="button" data-depth="15" class="depth-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300 hover:bg-purple-200 transition">🩸 عمق 15 m (دم الغواص!)</button>
+          <button type="button" data-depth="100" class="depth-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300 hover:bg-sky-200 transition">عمق 100 m (يتبقى 1% أزرق)</button>
+          <button type="button" data-depth="220" class="depth-preset-btn px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-slate-200 hover:bg-slate-300 transition">عمق 220 m (منطقة شفقية)</button>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <div class="lg:col-span-7 space-y-4">
+            <div class="bg-slate-50 dark:bg-slate-800/70 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <label for="depthSlider" class="text-sm font-black text-slate-800 dark:text-slate-200">حرّك الغواص لتغيير العمق:</label>
+                <span id="depthDisplayBadge" class="px-3 py-1 rounded-xl bg-sky-600 text-white font-black text-sm" dir="ltr">15 m</span>
+              </div>
+              <input id="depthSlider" type="range" min="0" max="250" step="1" value="15" class="w-full accent-sky-600 cursor-pointer" />
+              <div class="flex justify-between text-[11px] font-mono text-slate-500" dir="ltr"><span>0 m</span><span>10 m</span><span>100 m</span><span>250 m</span></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-bold">نسبة الضوء المرئي المتبقية</div>
+                <div id="remainingLightPct" class="text-xl font-black text-sky-600 dark:text-sky-400 font-mono mt-1" dir="ltr">~38%</div>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-bold">الأشعة تحت الحمراء (IR)</div>
+                <div id="irStatusText" class="text-sm font-black text-rose-600 dark:text-rose-400 mt-1">مُمتصة بالكامل (تُمتص حتى 10 cm)</div>
+              </div>
+              <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                <div class="text-xs text-slate-500 dark:text-slate-400 font-bold">لون دم الغواص عند هذا العمق</div>
+                <div class="text-sm font-black text-emerald-800 dark:text-emerald-300 mt-1 flex items-center gap-1.5">
+                  <span id="bloodColorDot" class="w-3.5 h-3.5 rounded-full inline-block bg-emerald-950 border border-white"></span>
+                  <span id="bloodColorLabel">أسود أو أخضر غامق! (لغياب الأحمر)</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-2.5">
+              <div class="text-xs font-black text-slate-700 dark:text-slate-300">شدة ألوان الطيف المرئي المتبقية عند هذا العمق:</div>
+              <div class="grid grid-cols-7 gap-2 text-center text-[11px] font-bold">
+                <div><div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-end p-1"><div id="barRed" class="w-full bg-red-600 rounded transition-all duration-300" style="height: 2%"></div></div><span class="mt-1 block text-red-600">أحمر</span></div>
+                <div><div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-end p-1"><div id="barOrange" class="w-full bg-orange-500 rounded transition-all duration-300" style="height: 9%"></div></div><span class="mt-1 block text-orange-500">برتقالي</span></div>
+                <div><div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-end p-1"><div id="barYellow" class="w-full bg-yellow-400 rounded transition-all duration-300" style="height: 26%"></div></div><span class="mt-1 block text-yellow-600">أصفر</span></div>
+                <div><div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-end p-1"><div id="barGreen" class="w-full bg-green-500 rounded transition-all duration-300" style="height: 44%"></div></div><span class="mt-1 block text-green-600">أخضر</span></div>
+                <div><div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-end p-1"><div id="barBlue" class="w-full bg-blue-600 rounded transition-all duration-300" style="height: 69%"></div></div><span class="mt-1 block text-blue-600">أزرق</span></div>
+                <div><div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-end p-1"><div id="barIndigo" class="w-full bg-indigo-600 rounded transition-all duration-300" style="height: 62%"></div></div><span class="mt-1 block text-indigo-500">نيلي</span></div>
+                <div><div class="h-16 bg-slate-200 dark:bg-slate-700 rounded-lg flex items-end p-1"><div id="barViolet" class="w-full bg-purple-600 rounded transition-all duration-300" style="height: 57%"></div></div><span class="mt-1 block text-purple-600">بنفسجي</span></div>
+              </div>
+              <p id="depthScientificNote" class="text-xs text-slate-600 dark:text-slate-300 pt-1 leading-relaxed">📌 سؤال هامش ص 156: لو جُرح غواص على عمق 15m سيظهر دمه باللون الأسود أو الأخضر الغامق لامتصاص الطول الموجي الأحمر في الأمتار الأولى.</p>
+            </div>
+          </div>
+          <div id="oceanColumnVisual" class="lg:col-span-5 rounded-3xl p-5 text-white flex flex-col justify-between gap-3 relative overflow-hidden" style="background: linear-gradient(180deg, #0284c7 0%, #0369a1 45%, #0f172a 100%); min-height: 340px;">
+            <div class="flex items-center justify-between gap-2 text-xs font-bold bg-black/25 backdrop-blur px-3 py-1.5 rounded-xl">
+              <span id="oceanZoneBadge">المنطقة المضاءة (السطحية)</span>
+              <span id="oceanWaterTypeBadge">مياه استوائية صافية</span>
+            </div>
+            <div class="my-auto flex flex-col items-center text-center space-y-2 bg-black/30 backdrop-blur-md p-5 rounded-2xl border border-white/15">
+              <div class="text-4xl">🤿</div>
+              <div class="text-base font-black" id="diverDepthTitle">الغواص على عمق 15 متر</div>
+              <p id="diverObservationText" class="text-xs text-sky-100 leading-relaxed">لو جُرح غواص على عمق 15m سيظهر دمه باللون الأسود أو الأخضر الغامق لأن الموجات الحمراء امتصت فوق ولا يوجد ضوء أحمر ينعكس من الدم لعينه!</p>
+            </div>
+            <div class="text-[11px] text-sky-100/90 bg-black/25 px-3 py-2 rounded-xl leading-relaxed">💡 <strong>ليه البحر بنشوفه أزرق؟</strong> لأن الألوان الدافئة (الأحمر والبرتقالي) تُمتص في الأمتار الأولى، بينما الألوان الباردة (الأزرق والبنفسجي) تخترق لمسافات أعمق وتتشتت جوة جزيئات المية فتنعكس على العين!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-rose-50/70 dark:bg-rose-950/30 rounded-3xl p-6 border border-rose-200 dark:border-rose-800/60 space-y-2">
+          <span class="px-3 py-1 rounded-full bg-rose-600 text-white text-xs font-bold">🔥 الألوان الدافئة (الأحمر والبرتقالي)</span>
+          <h4 class="text-lg font-black text-slate-900 dark:text-white">الأطوال الموجية الطويلة (طاقة وتردد أقل)</h4>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>تُمتص سريعاً</strong> في الأمتار الأولى من سطح الماء ولا تصل إلى الأعماق (الأشعة تحت الحمراء نفسها تُمتص بالكامل تقريباً حتى عمق <span dir="ltr" class="font-mono font-bold">10 cm</span> لأن طولها الموجي كبير وطاقتها قليلة).</p>
+        </div>
+        <div class="bg-sky-50/70 dark:bg-sky-950/30 rounded-3xl p-6 border border-sky-200 dark:border-sky-800/60 space-y-2">
+          <span class="px-3 py-1 rounded-full bg-sky-600 text-white text-xs font-bold">❄️ الألوان الباردة (الأزرق والبنفسجي)</span>
+          <h4 class="text-lg font-black text-slate-900 dark:text-white">الأطوال الموجية القصيرة (طاقة وتردد أعلى)</h4>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>تخترق الماء لمسافات أكبر</strong> من الألوان الدافئة، وعند عمق <span dir="ltr" class="font-mono font-bold">100 m</span> في المياه الاستوائية الصافية يُمتص 99% من طاقة الضوء المرئي ويتبقى <strong>1% معظمه في نطاق الضوء الأزرق</strong>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section id="book-page-3" class="book-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-emerald-600 via-teal-700 to-sky-900 text-white p-6 md:p-8 shadow-lg">
+        <div class="space-y-2 max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">صفحة 157 • مقارنة البيئات المائية + اختبر نفسك (19)</span>
+          <h2 class="text-2xl md:text-4xl font-black">اختراق الضوء في المياه الضحلة والمحيط المفتوح والتوازن البيئي</h2>
+          <p class="text-white/90 text-sm md:text-base leading-relaxed">يختلف امتصاص الماء للضوء عند اختراقه <strong>المياه الساحلية الضحلة</strong> عن <strong>مياه المحيط المفتوح العميقة</strong>، ويُعد الإشعاع الشمسي عاملاً حيوياً في الحفاظ على التوازن البيئي في البيئات المائية.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-emerald-200 dark:border-emerald-800/60 shadow-sm space-y-3">
+          <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full bg-emerald-600 text-white text-xs font-black">🏖️ اختراق الضوء في المياه الساحلية الضحلة</span><span class="text-xs font-bold text-emerald-700 dark:text-emerald-300">مياه عكرة بالرواسب</span></div>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">تحتوي المياه الساحلية الضحلة على <strong>رواسب وطين ومواد عالقة وعوالق نباتية</strong>، مما يؤدي إلى <strong>امتصاص وتشتت سريع للضوء</strong> فلا يخترق أعماقاً كبيرة (ملاحظة المعلم: يُمتص 99% من الضوء على عمق 20m أو أقل).</p>
+          <div class="h-14 rounded-2xl flex items-center justify-around text-xs font-bold text-white px-4" style="background: linear-gradient(270deg, #dc2626 0%, #eab308 35%, #15803d 70%, #0f172a 100%);">
+            <span>السطح (كل الألوان)</span><span>⬅️</span><span>يسود الأخضر/الأصفر ثم يظلم سريعاً</span>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-sky-200 dark:border-sky-800/60 shadow-sm space-y-3">
+          <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full bg-sky-600 text-white text-xs font-black">🌊 اختراق الضوء في المحيط المفتوح</span><span class="text-xs font-bold text-sky-700 dark:text-sky-300">مياه نقية صافية</span></div>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">تتميز مياه المحيط المفتوح العميقة بأنها <strong>نقية صافية خالية من الشوائب والرواسب</strong>، مما يسمح <strong>باختراق الضوء لأعماق أكبر</strong>، ويصل الضوء الأزرق حتى عمق <span dir="ltr" class="font-mono font-bold">100 m</span> فأكثر.</p>
+          <div class="h-14 rounded-2xl flex items-center justify-around text-xs font-bold text-white px-4" style="background: linear-gradient(270deg, #dc2626 0%, #16a34a 30%, #2563eb 75%, #1e1b4b 100%);">
+            <span>السطح (كل الألوان)</span><span>⬅️</span><span>يخترق اللون الأزرق لأعماق كبيرة جداً</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-amber-50/90 dark:bg-slate-900 rounded-3xl p-6 md:p-8 border-2 border-amber-400 dark:border-amber-600 space-y-6">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-amber-500 text-white font-black flex items-center justify-center text-sm">19</span>
+          <div>
+            <h3 class="text-lg md:text-xl font-black text-slate-900 dark:text-white">اختبر نفسك (صفحة 157) — اختر الإجابة الصحيحة</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400">اضغط على الإجابة للتحقق الفوري مع التفسير العلمي</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-amber-200 dark:border-slate-700 space-y-3">
+            <div class="flex items-center justify-between text-xs text-slate-500"><span class="font-bold text-amber-700 dark:text-amber-400">السؤال (1)</span><span>(بحر البقر / بورسعيد 26)</span></div>
+            <p class="font-bold text-sm md:text-base text-slate-900 dark:text-white">تكون كمية الضوء التي تخترق سطح الماء أكبر ما يمكن، عندما تكون الزاوية المحصورة بين أشعة الشمس الساقطة وسطح الماء تساوي ............</p>
+            <div class="grid grid-cols-2 gap-2" data-inline-quiz="q19_1" data-correct="90">
+              <button type="button" data-opt="0" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">أ) 0°</button>
+              <button type="button" data-opt="45" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ب) 45°</button>
+              <button type="button" data-opt="90" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ج) 90°</button>
+              <button type="button" data-opt="120" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">د) 120°</button>
+            </div>
+            <div id="feedback-q19_1" class="hidden p-3 rounded-xl text-xs font-bold leading-relaxed"></div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-amber-200 dark:border-slate-700 space-y-3">
+            <div class="flex items-center justify-between text-xs text-slate-500"><span class="font-bold text-amber-700 dark:text-amber-400">السؤال (2)</span><span>(أبشواي / الفيوم 25)</span></div>
+            <p class="font-bold text-sm md:text-base text-slate-900 dark:text-white">عند مرور الإشعاع الشمسي خلال مياه المحيط، أي الأطوال الموجية الآتية تُمتص تماماً في الماء أولاً؟</p>
+            <div class="grid grid-cols-2 gap-2" data-inline-quiz="q19_2" data-correct="1000">
+              <button type="button" data-opt="1000" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">أ) 1000 nm</button>
+              <button type="button" data-opt="600" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ب) 600 nm</button>
+              <button type="button" data-opt="500" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ج) 500 nm</button>
+              <button type="button" data-opt="400" class="inline-quiz-btn p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">د) 400 nm</button>
+            </div>
+            <div id="feedback-q19_2" class="hidden p-3 rounded-xl text-xs font-bold leading-relaxed"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 space-y-5">
+        <div class="space-y-2">
+          <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">مخطط مفاهيمي • ص 157</span>
+          <h3 class="text-xl font-black text-slate-900 dark:text-white">تأثير الإشعاع الشمسي على البيئات المائية</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300">يُعد الإشعاع الشمسي عاملاً حيوياً في الحفاظ على <strong>التوازن البيئي</strong> في البيئات المائية، ويرجع ذلك إلى أثره على: <strong>(1) درجة حرارة المياه وتوزيع الكائنات البحرية</strong>، و<strong>(2) عملية التمثيل الضوئي التي تعتبر أساساً للحياة البحرية</strong>.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-4 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800/60 space-y-1.5"><span class="w-7 h-7 rounded-full bg-sky-600 text-white font-black text-xs flex items-center justify-center">1</span><h4 class="font-black text-sm text-slate-900 dark:text-white">دور الإشعاع الشمسي في توزيع الكائنات البحرية</h4><p class="text-xs text-slate-600 dark:text-slate-400">الهائمات النباتية، الطحالب، والشعاب المرجانية (ص 158).</p></div>
+          <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 space-y-1.5"><span class="w-7 h-7 rounded-full bg-amber-500 text-white font-black text-xs flex items-center justify-center">2</span><h4 class="font-black text-sm text-slate-900 dark:text-white">تأثير الإشعاع الشمسي على درجات حرارة المياه</h4><p class="text-xs text-slate-600 dark:text-slate-400">المناطق الاستوائية (التونة والباراكودا) والباردة (القد) (ص 158).</p></div>
+          <div class="p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 space-y-1.5"><span class="w-7 h-7 rounded-full bg-indigo-600 text-white font-black text-xs flex items-center justify-center">3</span><h4 class="font-black text-sm text-slate-900 dark:text-white">تأثير الإشعاع الشمسي على التيارات المحيطية</h4><p class="text-xs text-slate-600 dark:text-slate-400">تشكيل تيار الخليج (Gulf Stream) وتوزيع الغذاء (ص 159).</p></div>
+          <div class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800/60 space-y-1.5"><span class="w-7 h-7 rounded-full bg-rose-600 text-white font-black text-xs flex items-center justify-center">4</span><h4 class="font-black text-sm text-slate-900 dark:text-white">تأثير التغير في شدة الإشعاع الشمسي</h4><p class="text-xs text-slate-600 dark:text-slate-400">تغير الفصول في المناطق القطبية شتاءً ونقص التمثيل الضوئي (ص 159).</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section id="book-page-4" class="book-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-teal-600 via-cyan-700 to-blue-900 text-white p-6 md:p-8 shadow-lg">
+        <div class="space-y-2 max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">صفحة 158 • الكائنات البحرية وحرارة المياه</span>
+          <h2 class="text-2xl md:text-4xl font-black">توزيع الكائنات البحرية والشعاب المرجانية ودرجات الحرارة</h2>
+          <p class="text-white/90 text-sm md:text-base leading-relaxed">تتوزع الكائنات البحرية بشكل متفاوت في المياه وفقاً لاحتياجاتها من الضوء والطاقة، كما يؤثر الإشعاع الشمسي بشكل مباشر على درجات حرارة المياه وتوزيع الأسماك.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 space-y-4">
+          <span class="px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 dark:bg-emerald-900/50 dark:text-emerald-300 text-xs font-black">🌿 الكائنات ذاتية التغذية</span>
+          <h3 class="text-xl font-black text-slate-900 dark:text-white">الهائمات النباتية (الفيتوبلانكتون) والطحالب</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">تتواجد بكثرة الكائنات التي تعتمد على <strong>التمثيل الضوئي</strong> في <strong>الطبقات السطحية</strong> من الماء حيث يتوفر الإشعاع الشمسي بكميات كافية، وبالتالي فهي تنمو في:</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3.5 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800"><div class="font-black text-sm text-sky-800 dark:text-sky-300">في المياه الصافية</div><div class="text-xs text-slate-600 dark:text-slate-300 mt-1">تنمو حتى عمق <strong class="font-mono">100 m</strong> لوصول الضوء الكافي.</div></div>
+            <div class="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800"><div class="font-black text-sm text-amber-800 dark:text-amber-300">في المياه العكرة</div><div class="text-xs text-slate-600 dark:text-slate-300 mt-1">(التي تحتوي على رواسب أو عوالق نباتية) تكون <strong>أقرب للسطح</strong>.</div></div>
+          </div>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 space-y-4">
+          <span class="px-3 py-1 rounded-full bg-rose-100 text-rose-800 dark:bg-rose-900/50 dark:text-rose-300 text-xs font-black">🪸 الشعاب المرجانية والطحالب التكافلية</span>
+          <h3 class="text-xl font-black text-slate-900 dark:text-white">علاقة تبادل منفعة (علاقة تكافلية)</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">تزدهر الشعاب المرجانية في <strong>المياه الدافئة الضحلة بالقرب من خط الاستواء</strong> حيث يتوفر الإشعاع الشمسي على مدار السنة، مما يحفز نمو <strong>الطحالب التكافلية</strong> التي تعيش داخل أنسجة المرجان وتزوده بالغذاء.</p>
+          <div class="teacher-note-box handwritten-note p-3.5 rounded-2xl text-xs space-y-1">
+            <div class="font-black text-amber-900 dark:text-amber-300">⚠️ انتبه جيداً (ملاحظة هامش ص 158):</div>
+            <p class="text-slate-800 dark:text-slate-200">الشعاب المرجانية <strong>حيوان وليس نبات</strong>، لكنها تعتمد على عملية التمثيل الضوئي <strong>بطريقة غير مباشرة</strong> عن طريق الطحالب التكافلية التي تعيش بداخلها!</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 space-y-6">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-4">
+          <div>
+            <span class="text-xs font-bold text-rose-600 dark:text-rose-400 uppercase">محاكاة تفاعلية 4 • خلفية علمية وتجربة ص 158</span>
+            <h3 class="text-xl font-black text-slate-900 dark:text-white">مختبر تبادل المنفعة في الشعاب المرجانية وتجربة النقل لعمق 300 متر</h3>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button type="button" id="coralShallowBtn" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-emerald-600 text-white shadow transition">☀️ بيئتها الطبيعية (مياه ضحلة دافئة)</button>
+            <button type="button" id="coralDeepBtn" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 hover:bg-rose-600 hover:text-white transition">⬇️ انقل المرجان لعمق 300 متر!</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-5 rounded-2xl bg-rose-50 dark:bg-rose-950/30 border border-rose-200 dark:border-rose-800 space-y-2">
+              <div class="text-2xl">🪸</div>
+              <h4 class="font-black text-base text-slate-900 dark:text-white">ماذا توفر الشعاب المرجانية للطحالب؟</h4>
+              <ul class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-1.5 list-disc list-inside">
+                <li><strong>الحماية</strong> (تعيش داخل أنسجة المرجان).</li>
+                <li><strong>غاز ثاني أكسيد الكربون (CO₂)</strong>.</li>
+                <li><strong>العناصر المعدنية</strong> كالنيتروجين والفوسفور.</li>
+              </ul>
+            </div>
+            <div class="p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 space-y-2">
+              <div class="text-2xl">🦠</div>
+              <h4 class="font-black text-base text-slate-900 dark:text-white">ماذا توفر الطحالب للشعاب المرجانية؟</h4>
+              <ul class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 space-y-1.5 list-disc list-inside">
+                <li><strong>الغذاء</strong> (من خلال عملية التمثيل الضوئي).</li>
+                <li><strong>غاز الأكسجين (O₂)</strong> اللازم للتنفس.</li>
+                <li>تسمى العلاقة: <strong>تبادل منفعة (علاقة تكافلية)</strong>.</li>
+              </ul>
+            </div>
+          </div>
+          <div id="coralExperimentCard" class="lg:col-span-5 p-6 rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-800 text-white space-y-3 transition-all duration-500">
+            <div class="flex items-center justify-between gap-2">
+              <span id="coralExpBadge" class="px-3 py-1 rounded-full bg-white/20 text-xs font-black">الحالة الحالية: مياه ضحلة مضاءة</span>
+              <span id="coralStatusEmoji" class="text-3xl">🪸✨</span>
+            </div>
+            <h4 id="coralExpTitle" class="text-lg font-black">ازدهار المرجان والطحالب التكافلية معاً</h4>
+            <p id="coralExpDesc" class="text-xs sm:text-sm text-white/90 leading-relaxed">يتوفر الإشعاع الشمسي على مدار السنة في المياه الدافئة الضحلة قرب خط الاستواء، فتقوم الطحالب بالتمثيل الضوئي وتنتج الغذاء والأكسجين للمرجان.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 md:p-8 border border-slate-200 dark:border-slate-800 space-y-5">
+        <div>
+          <span class="text-xs font-bold text-amber-600 dark:text-amber-400">المحور الثاني • ص 158</span>
+          <h3 class="text-xl font-black text-slate-900 dark:text-white">2. تأثير الإشعاع الشمسي على درجات حرارة المياه وتوزيع الأسماك</h3>
+          <p class="text-sm text-slate-700 dark:text-slate-300 mt-1">يؤثر الإشعاع الشمسي بشكل مباشر على درجات حرارة المياه، مما يؤثر على توزيع الكائنات البحرية:</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-6 rounded-3xl bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-slate-900 border border-amber-200 dark:border-amber-800/60 space-y-3">
+            <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full bg-amber-500 text-white text-xs font-black">☀️ المناطق الاستوائية</span><span class="text-xs font-bold text-amber-800 dark:text-amber-300">المياه دافئة</span></div>
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">تكون المياه <strong>دافئة</strong>، مما يتسبب في جذب أنواع معينة من الأسماك والحيوانات البحرية التي تحتاج إلى <strong>درجات حرارة مرتفعة نسبياً للبقاء والتكاثر</strong>.</p>
+            <div class="pt-2 flex flex-wrap gap-2">
+              <span class="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-amber-300 dark:border-amber-700 text-xs font-black text-slate-900 dark:text-white">🐟 مثال 1: سمكة التونة (أسماك استوائية)</span>
+              <span class="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-amber-300 dark:border-amber-700 text-xs font-black text-slate-900 dark:text-white">🦈 مثال 2: سمكة الباراكودا (أسماك استوائية)</span>
+            </div>
+          </div>
+          <div class="p-6 rounded-3xl bg-gradient-to-br from-sky-50 to-indigo-50 dark:from-sky-950/30 dark:to-slate-900 border border-sky-200 dark:border-sky-800/60 space-y-3">
+            <div class="flex items-center justify-between gap-2"><span class="px-3 py-1 rounded-full bg-sky-600 text-white text-xs font-black">❄️ المناطق البعيدة عن خط الاستواء (القطبية)</span><span class="text-xs font-bold text-sky-800 dark:text-sky-300">المياه باردة</span></div>
+            <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">تكون المياه <strong>باردة</strong>، مما يتسبب في جذب أنواع من الأسماك <strong>تفضل المياه الباردة</strong> للعيش والتكاثر فيها.</p>
+            <div class="pt-2 flex flex-wrap gap-2">
+              <span class="px-3.5 py-2 rounded-2xl bg-white dark:bg-slate-800 border border-sky-300 dark:border-sky-700 text-xs font-black text-slate-900 dark:text-white">🐟 مثال الكتاب: سمكة القد (Cod)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5 -->
+    <section id="book-page-5" class="book-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-indigo-600 via-blue-700 to-slate-900 text-white p-6 md:p-8 shadow-lg">
+        <div class="space-y-2 max-w-3xl">
+          <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">صفحة 159 • التيارات المحيطية وتغير الفصول + اختبر نفسك (20)</span>
+          <h2 class="text-2xl md:text-4xl font-black">التيارات المحيطية (تيار الخليج) وتأثير تغير شدة الإشعاع</h2>
+          <p class="text-white/90 text-sm md:text-base leading-relaxed">يسهم الإشعاع الشمسي في تشكيل التيارات المحيطية مثل <strong>تيار الخليج</strong>، كما أن التغير في شدة الإشعاع الشمسي نتيجة تغير الفصول أو المناخ يؤثر مباشرة في السلاسل الغذائية البحرية.</p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 space-y-4">
+          <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900/50 dark:text-indigo-300 text-xs font-black">🌊 3. تأثير الإشعاع الشمسي على التيارات المحيطية</span>
+          <h3 class="text-xl font-black text-slate-900 dark:text-white">مثال: تيار الخليج (Gulf Stream)</h3>
+          <div class="flex flex-wrap items-center gap-2 text-xs font-bold bg-slate-50 dark:bg-slate-800 p-3 rounded-2xl">
+            <span class="text-amber-600">الإشعاع الشمسي</span><span>⬅️</span><span class="text-sky-600">تشكيل التيارات المحيطية</span><span>⬅️</span><span class="text-emerald-600">مناطق غنية بالموارد الغذائية</span><span>⬅️</span><span class="text-purple-600">توزيع الكائنات البحرية</span>
+          </div>
+          <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed"><strong>تيار الخليج (Gulf Stream):</strong> أحد التيارات المحيطية الذي يحمل <strong>المياه الدافئة من خط الاستواء</strong> (بين أمريكا الجنوبية وأمريكا الشمالية) نحو <strong>شمال المحيط الأطلسي</strong>، مما يؤدي إلى:</p>
+          <ul class="text-sm text-slate-700 dark:text-slate-300 space-y-1.5 list-disc list-inside font-semibold">
+            <li><strong>اعتدال المناخ</strong> في مناطق مثل <strong>أوروبا الغربية</strong>.</li>
+            <li><strong>تعزيز تنوع الحياة البحرية</strong> بها لتوافر الدفء والموارد الغذائية.</li>
+          </ul>
+        </div>
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 space-y-4">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <span class="px-3 py-1 rounded-full bg-sky-100 text-sky-800 dark:bg-sky-900/50 dark:text-sky-300 text-xs font-black">❄️ 4. التغير في شدة الإشعاع الشمسي</span>
+            <div class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+              <button type="button" id="polarWinterBtn" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white">شتاء قطبي ❄️</button>
+              <button type="button" id="polarSummerBtn" class="px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300">صيف قطبي ☀️</button>
+            </div>
+          </div>
+          <h3 class="text-xl font-black text-slate-900 dark:text-white">المناطق القطبية وتغير الفصول</h3>
+          <div class="space-y-2.5 pt-1">
+            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border-r-4 border-sky-600 text-xs sm:text-sm font-bold" id="polarStep1">1️⃣ خلال فترات <strong>الشتاء في المناطق القطبية</strong>: يكون الإشعاع الشمسي <strong>منخفضاً أو معدوماً</strong>.</div>
+            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border-r-4 border-amber-500 text-xs sm:text-sm font-bold" id="polarStep2">2️⃣ النتيجة المباشرة: <strong>تقل بشكل كبير معدلات التمثيل الضوئي</strong> للكائنات البحرية ذاتية التغذية (الهائمات النباتية والطحالب).</div>
+            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-800 border-r-4 border-rose-600 text-xs sm:text-sm font-bold" id="polarStep3">3️⃣ الأثر البيئي: <strong>يتأثر سلباً توافر الغذاء</strong> للكائنات البحرية ويحدث اضطراب في التوازن البيئي.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-amber-50/90 dark:bg-slate-900 rounded-3xl p-6 md:p-8 border-2 border-amber-400 dark:border-amber-600 space-y-6">
+        <div class="flex items-center gap-2.5">
+          <span class="w-9 h-9 rounded-xl bg-amber-500 text-white font-black flex items-center justify-center text-sm">20</span>
+          <div>
+            <h3 class="text-lg md:text-xl font-black text-slate-900 dark:text-white">اختبر نفسك (صفحة 159) — اختر الإجابة الصحيحة</h3>
+            <p class="text-xs text-slate-600 dark:text-slate-400">اضغط على الإجابة للتحقق الفوري مع التفسير العلمي</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-amber-200 dark:border-slate-700 space-y-3">
+            <span class="text-xs font-bold text-amber-700 dark:text-amber-400">السؤال (1)</span>
+            <p class="font-bold text-sm md:text-base text-slate-900 dark:text-white">أي الكائنات الحية التالية تعتبر مصدر الغذاء الأساسي اللازم لاستمرار السلاسل الغذائية في النظم البيئية البحرية؟</p>
+            <div class="grid grid-cols-1 gap-2" data-inline-quiz="q20_1" data-correct="b">
+              <button type="button" data-opt="a" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">أ) الهائمات النباتية والشعاب المرجانية</button>
+              <button type="button" data-opt="b" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ب) الهائمات النباتية والطحالب</button>
+              <button type="button" data-opt="c" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ج) الأسماك الصغيرة والأسماك الكبيرة</button>
+              <button type="button" data-opt="d" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">د) الطحالب والأسماك الصغيرة</button>
+            </div>
+            <div id="feedback-q20_1" class="hidden p-3 rounded-xl text-xs font-bold leading-relaxed"></div>
+          </div>
+          <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-amber-200 dark:border-slate-700 space-y-3">
+            <div class="flex items-center justify-between text-xs text-slate-500"><span class="font-bold text-amber-700 dark:text-amber-400">السؤال (2)</span><span>(الباجور / المنوفية 26)</span></div>
+            <p class="font-bold text-sm md:text-base text-slate-900 dark:text-white">في البيئة البحرية، أي مما يلي الأقل تأثراً بتغير الفصول خلال العام؟</p>
+            <div class="grid grid-cols-1 gap-2" data-inline-quiz="q20_2" data-correct="d">
+              <button type="button" data-opt="a" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">أ) معدلات التمثيل الضوئي</button>
+              <button type="button" data-opt="b" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ب) توافر الغذاء للكائنات البحرية</button>
+              <button type="button" data-opt="c" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">ج) ازدهار الشعاب المرجانية</button>
+              <button type="button" data-opt="d" class="inline-quiz-btn text-right p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-700 transition">د) نشاط أسماك الأعماق</button>
+            </div>
+            <div id="feedback-q20_2" class="hidden p-3 rounded-xl text-xs font-bold leading-relaxed"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6 -->
+    <section id="book-page-6" class="book-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-purple-600 via-indigo-700 to-slate-900 text-white p-6 md:p-8 shadow-lg">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">مراجعة ليلة الامتحان • بطاقات تفاعلية</span>
+            <h2 class="text-2xl md:text-4xl font-black">بطاقات المراجعة الذكية وأسرار الهوامش (Flashcards)</h2>
+            <p class="text-white/90 text-sm md:text-base">اضغط على أي بطاقة لقلبها ومراجعة أهم التعليلات والأرقام والعلاقات في درس الإشعاع الشمسي.</p>
+          </div>
+          <button type="button" id="resetFlashcardsBtn" class="px-4 py-2.5 rounded-2xl bg-white text-indigo-900 font-black text-xs sm:text-sm shadow hover:bg-indigo-50 transition self-start md:self-center">🔄 إعادة جميع البطاقات للوجه الأول</button>
+        </div>
+      </div>
+      <div id="flashcardsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+    </section>
+
+    <!-- PAGE 7 -->
+    <section id="book-page-7" class="book-page hidden space-y-6">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-l from-amber-500 via-rose-600 to-indigo-900 text-white p-6 md:p-8 shadow-lg">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-2">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur text-xs font-bold">تقييم شامل • 12 سؤالاً تغطي كل تفصيلة بالدرس</span>
+            <h2 class="text-2xl md:text-4xl font-black">الاختبار التفاعلي الشامل على الدرس الثامن</h2>
+            <p class="text-white/90 text-sm md:text-base">أجب عن الأسئلة التالية لتحصل على نتيجتك الفورية مع التفسير العلمي التفصيلي لكل سؤال.</p>
+          </div>
+          <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-center shrink-0">
+            <div class="text-xs text-amber-100 font-bold">درجتك الحالية</div>
+            <div id="quizScoreDisplay" class="text-2xl font-black font-mono mt-0.5" dir="ltr">0 / 12</div>
+            <button type="button" id="resetFullQuizBtn" class="mt-2 px-3 py-1 rounded-lg bg-white text-slate-900 text-xs font-bold hover:bg-amber-100 transition">🔄 إعادة الاختبار</button>
+          </div>
+        </div>
+      </div>
+      <div id="fullQuizContainer" class="space-y-4"></div>
+    </section>
+
+  </main>
+
+  <footer class="sticky bottom-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 py-3 px-4" style="padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));">
+    <div class="max-w-7xl mx-auto flex items-center justify-between gap-4">
+      <button type="button" id="prevPageBtn" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 font-bold text-xs sm:text-sm hover:bg-slate-200 disabled:opacity-40 transition flex items-center gap-1.5"><span>➡️</span><span>الصفحة السابقة</span></button>
+      <div id="footerPageTitle" class="text-xs sm:text-sm font-black text-slate-700 dark:text-slate-300 text-center">صفحة 1 من 7: الإشعاع الشمسي والطيف الكهرومغناطيسي (ص 155)</div>
+      <button type="button" id="nextPageBtn" class="px-4 py-2 rounded-xl bg-sky-600 text-white font-bold text-xs sm:text-sm hover:bg-sky-700 disabled:opacity-40 transition flex items-center gap-1.5"><span>الصفحة التالية</span><span>⬅️</span></button>
+    </div>
+  </footer>
+
+  <script>
+    let currentPage = 1;
+    const totalPages = 7;
+    const visitedPages = new Set([1]);
+    let notesVisible = true;
+    let isClearWater = true;
+
+    const TAB_BASE = 'chapter-tab px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold transition flex items-center gap-1.5 ';
+    const TAB_ON = TAB_BASE + 'bg-sky-600 text-white shadow-sm';
+    const TAB_OFF = TAB_BASE + 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200';
+
+    const pageTitles = {
+      1: 'صفحة 1 من 7: الإشعاع الشمسي والطيف الكهرومغناطيسي (ص 155)',
+      2: 'صفحة 2 من 7: المناطق الضوئية في الماء ونفاذ الألوان (ص 156)',
+      3: 'صفحة 3 من 7: المياه الضحلة والمحيط المفتوح + اختبر نفسك 19 (ص 157)',
+      4: 'صفحة 4 من 7: توزيع الكائنات البحرية والشعاب المرجانية وحرارة المياه (ص 158)',
+      5: 'صفحة 5 من 7: تيار الخليج والمناطق القطبية + اختبر نفسك 20 (ص 159)',
+      6: 'صفحة 6 من 7: بطاقات المراجعة الذكية وأسرار الهوامش',
+      7: 'صفحة 7 من 7: الاختبار التفاعلي الشامل (12 سؤالاً)'
+    };
+
+    function goToPage(n) {
+      if (n < 1 || n > totalPages) return;
+      currentPage = n;
+      visitedPages.add(n);
+      document.querySelectorAll('.book-page').forEach((sec, idx) => sec.classList.toggle('hidden', idx + 1 !== currentPage));
+      document.querySelectorAll('.chapter-tab').forEach((btn) => {
+        btn.className = parseInt(btn.getAttribute('data-page'), 10) === currentPage ? TAB_ON : TAB_OFF;
+      });
+      document.getElementById('readingProgressBar').style.width = Math.round((visitedPages.size / totalPages) * 100) + '%';
+      document.getElementById('readingProgressText').textContent = visitedPages.size + ' / ' + totalPages;
+      document.getElementById('footerPageTitle').textContent = pageTitles[currentPage];
+      document.getElementById('prevPageBtn').disabled = (currentPage === 1);
+      document.getElementById('nextPageBtn').disabled = (currentPage === totalPages);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('.chapter-tab').forEach((btn) => {
+      btn.addEventListener('click', () => goToPage(parseInt(btn.getAttribute('data-page'), 10)));
+    });
+    document.getElementById('prevPageBtn').addEventListener('click', () => goToPage(currentPage - 1));
+    document.getElementById('nextPageBtn').addEventListener('click', () => goToPage(currentPage + 1));
+
+    document.getElementById('toggleNotesBtn').addEventListener('click', () => {
+      notesVisible = !notesVisible;
+      document.querySelectorAll('.teacher-note-box').forEach((el) => el.classList.toggle('hidden', !notesVisible));
+      document.getElementById('toggleNotesLabel').textContent = notesVisible ? 'ملاحظات المعلم: مفعّلة' : 'ملاحظات المعلم: مخفية';
+    });
+
+    function syncThemeIcon() {
+      document.getElementById('themeIcon').textContent = document.documentElement.classList.contains('dark') ? '☀️' : '🌙';
+    }
+    document.getElementById('toggleThemeBtn').addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      syncThemeIcon();
+    });
+
+    document.querySelectorAll('.reveal-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const box = document.getElementById(btn.getAttribute('data-reveal'));
+        if (box) box.classList.toggle('hidden');
+      });
+    });
+
+    // ===== SIM 1 =====
+    const spectrumData = {
+      gamma: { badge: 'أشعة جاما (Gamma Rays)', vis: '🚫 لا تُرى بالعين البشرية', title: 'أشعة جاما — الأعلى تردداً والأعلى طاقة والأقصر طولاً موجياً',
+        desc: 'تقع في بداية الطيف الكهرومغناطيسي بالكتاب؛ تتميز بأقصر طول موجي على الإطلاق وأعلى تردد وأعلى طاقة، وتنتشر في الفراغ بنفس السرعة الثابتة (3 × 10⁸ m/s).',
+        lambda: '10⁻¹⁶ – 10⁻¹² m', freq: '10²⁰ – 10²⁴ Hz', energy: 'طاقة فائقة جداً (الأعلى)', cycles: 18, cycleLabel: 'تردد فائق جداً (λ قصير جداً)' },
+      xray: { badge: 'الأشعة السينية (X-Rays)', vis: '🚫 لا تُرى بالعين البشرية', title: 'الأشعة السينية — تردد وطاقة عالية جداً',
+        desc: 'تلي أشعة جاما في التردد والطاقة، وطولها الموجي قصير جداً. تصل للأرض من الشمس في نفس اللحظة التي تصل فيها موجات الراديو لأن سرعة الموجات الكهرومغناطيسية في الفراغ ثابتة.',
+        lambda: '10⁻¹⁰ – 10⁻⁸ m', freq: '10¹⁶ – 10¹⁹ Hz', energy: 'طاقة عالية جداً', cycles: 14, cycleLabel: 'تردد عالٍ جداً' },
+      uv: { badge: 'الأشعة فوق البنفسجية (UV)', vis: '🚫 لا تُرى بالعين البشرية', title: 'الأشعة فوق البنفسجية — أعلى تردداً وطاقة من الضوء المرئي',
+        desc: 'تقع مباشرة بجانب اللون البنفسجي من الضوء المرئي؛ ترددها وطاقتها أعلى من الضوء المرئي، وطولها الموجي أقصر من 400 nm، ولا تُرى بالعين البشرية.',
+        lambda: '10⁻⁸ – 4×10⁻⁷ m (<400 nm)', freq: '10¹⁵ – 10¹⁶ Hz', energy: 'أعلى طاقة من الضوء المرئي', cycles: 10, cycleLabel: 'تردد أعلى من المرئي' },
+      visible: { badge: 'الضوء المرئي (Visible Light)', vis: '👁️ يُرى بالعين البشرية', title: 'الضوء المرئي (400 nm إلى 700 nm)',
+        desc: 'يمثل جزءاً صغيراً من الطيف الكهرومغناطيسي، ويتكون من 7 ألوان تبدأ بالبنفسجي (400 nm) وتنتهي بالأحمر (700 nm). الألوان الباردة (الأزرق والبنفسجي) تخترق الماء أعمق من الألوان الدافئة.',
+        lambda: '400 nm – 700 nm', freq: '~4.3×10¹⁴ – 7.5×10¹⁴ Hz', energy: 'متوسطة (ينفذ الأزرق حتى 100m)', cycles: 7, cycleLabel: 'تردد متوسط (مرئي)' },
+      ir: { badge: 'الأشعة تحت الحمراء (Infrared)', vis: '🚫 لا تُرى بالعين البشرية', title: 'الأشعة تحت الحمراء — تُمتص في أول 10 cm من سطح الماء!',
+        desc: 'تقع بعد اللون الأحمر (> 700 nm مثل 1000 nm)؛ ترددها وطاقتها أقل من الضوء المرئي وطولها الموجي أكبر، ولذلك تُمتص بالكامل تقريباً حتى عمق 10 cm فقط من سطح الماء.',
+        lambda: '700 nm – 10⁻³ m', freq: '3×10¹¹ – 4.3×10¹⁴ Hz', energy: 'طاقة قليلة (تُمتص عند 10 cm بالماء)', cycles: 4.5, cycleLabel: 'تردد أقل (طول موجي كبير)' },
+      micro: { badge: 'الموجات الميكرومترية (Microwaves)', vis: '🚫 لا تُرى بالعين البشرية', title: 'الموجات الميكرومترية (الميكروويف)',
+        desc: 'أطول موجياً وأقل تردداً وطاقة من الأشعة تحت الحمراء، وتقع بين الأشعة تحت الحمراء وموجات الراديو.',
+        lambda: '10⁻³ – 10⁰ m', freq: '3×10⁸ – 3×10¹¹ Hz', energy: 'طاقة منخفضة', cycles: 3, cycleLabel: 'تردد منخفض' },
+      radio: { badge: 'موجات الراديو (Radio Waves)', vis: '🚫 لا تُرى بالعين البشرية', title: 'موجات الراديو — الأكبر طولاً موجياً والأقل تردداً وطاقة',
+        desc: 'تشمل موجات التلفزيون والمحمول واللاسلكي؛ لها أكبر طول موجي (يصل لمئات الأمتار) وأقل تردد وطاقة، لكنها تسير في الفراغ بنفس سرعة الضوء (3 × 10⁸ m/s).',
+        lambda: '10⁰ – 10⁸ m', freq: '3×10⁰ – 3×10⁸ Hz', energy: 'الأقل طاقة وتردداً', cycles: 1.5, cycleLabel: 'أكبر طول موجي (أقل تردد)' }
+    };
+
+    function drawWave(cycles) {
+      const width = 400, midY = 55, amp = 34;
+      let dE = `M 0 ${midY}`, dB = `M 0 ${midY}`;
+      for (let x = 0; x <= width; x += 2) {
+        const angle = (x / width) * cycles * Math.PI * 2;
+        dE += ` L ${x} ${(midY - Math.sin(angle) * amp).toFixed(1)}`;
+        dB += ` L ${x} ${(midY - Math.sin(angle) * amp * 0.55).toFixed(1)}`;
+      }
+      document.getElementById('wavePathElectric').setAttribute('d', dE);
+      document.getElementById('wavePathMagnetic').setAttribute('d', dB);
+    }
+
+    document.querySelectorAll('.spectrum-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const info = spectrumData[btn.getAttribute('data-wave')];
+        if (!info) return;
+        document.querySelectorAll('.spectrum-btn').forEach((b) => b.classList.remove('ring-2', 'ring-amber-400'));
+        btn.classList.add('ring-2', 'ring-amber-400');
+        document.getElementById('waveBadge').textContent = info.badge;
+        document.getElementById('waveVisibilityBadge').textContent = info.vis;
+        document.getElementById('waveTitle').textContent = info.title;
+        document.getElementById('waveDesc').textContent = info.desc;
+        document.getElementById('waveLambda').textContent = info.lambda;
+        document.getElementById('waveFreq').textContent = info.freq;
+        document.getElementById('waveEnergy').textContent = info.energy;
+        document.getElementById('waveCycleLabel').textContent = info.cycleLabel;
+        drawWave(info.cycles);
+      });
+    });
+
+    const visibleColorsInfo = [
+      '🟣 <strong>اللون البنفسجي (~400 nm):</strong> أقصر الألوان المرئية طولاً موجياً وأعلاها تردداً وطاقة؛ من الألوان الباردة التي تخترق الماء لأعماق كبيرة.',
+      '🟦 <strong>اللون النيلي (~445 nm):</strong> طول موجي قصير وطاقة عالية؛ ينفذ في المياه الصافية لمسافات كبيرة.',
+      '🔵 <strong>اللون الأزرق (~500 nm):</strong> من الألوان الباردة ذات الأطوال الموجية القصيرة؛ أكثر الألوان اختراقاً لمياه المحيط (يتبقى عند عمق 100m) ويتشتت ليعطي البحر لونه الأزرق!',
+      '🟢 <strong>اللون الأخضر (~540 nm):</strong> يقع في منتصف الطيف المرئي؛ يخترق لمسافات متوسطة في الماء.',
+      '🟡 <strong>اللون الأصفر (~600 nm):</strong> يُمتص على أعماق متوسطة قبل الأزرق والأخضر.',
+      '🟠 <strong>اللون البرتقالي (~640 nm):</strong> من الألوان الدافئة ذات الأطوال الموجية الطويلة؛ يُمتص سريعاً في الطبقات العليا من الماء.',
+      '🔴 <strong>اللون الأحمر (~700 nm):</strong> أكبر ألوان الطيف المرئي طولاً موجياً وأقلها تردداً وطاقة؛ يُمتص سريعاً في الأمتار الأولى فلا يصل إلى عمق 15m (لذلك يظهر دم الغواص أسود أو أخضر غامق!).'
+    ];
+    document.querySelectorAll('.vis-color-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.getElementById('visibleColorText').innerHTML = visibleColorsInfo[parseInt(btn.getAttribute('data-color-idx'), 10)];
+      });
+    });
+
+    // ===== SIM 2 =====
+    const sunAngleSlider = document.getElementById('sunAngleSlider');
+    function updateSunAngleSimulation(angleDeg) {
+      sunAngleSlider.value = angleDeg;
+      const rad = (angleDeg * Math.PI) / 180;
+      const hitX = 210, hitY = 140, rayLen = 115;
+      const sunX = hitX - Math.cos(rad) * rayLen, sunY = hitY - Math.sin(rad) * rayLen;
+      const refX = hitX + Math.cos(rad) * rayLen, refY = hitY - Math.sin(rad) * rayLen;
+      const inc = document.getElementById('svgIncomingRay');
+      inc.setAttribute('x1', sunX.toFixed(1)); inc.setAttribute('y1', sunY.toFixed(1));
+      const sun = document.getElementById('svgSunPos');
+      sun.setAttribute('cx', sunX.toFixed(1)); sun.setAttribute('cy', sunY.toFixed(1));
+      const ref = document.getElementById('svgReflectedRay');
+      ref.setAttribute('x2', refX.toFixed(1)); ref.setAttribute('y2', refY.toFixed(1));
+
+      const reflectionRatio = Math.round(Math.pow(1 - angleDeg / 90, 1.6) * 75 + 2);
+      const penetrationRatio = 100 - reflectionRatio;
+      document.getElementById('reflectedBar').style.width = reflectionRatio + '%';
+      document.getElementById('penetratedBar').style.width = penetrationRatio + '%';
+      ref.setAttribute('stroke-width', (1.5 + (reflectionRatio / 100) * 5).toFixed(1));
+      document.getElementById('svgPenetratedRay').setAttribute('stroke-width', (2 + (penetrationRatio / 100) * 5).toFixed(1));
+
+      const val = document.getElementById('sunAngleValue');
+      const rl = document.getElementById('reflectedAmountLabel');
+      const pl = document.getElementById('penetratedAmountLabel');
+      const al = document.getElementById('svgAngleLabel');
+      const pen = document.getElementById('svgPenLabel');
+      if (angleDeg >= 75) {
+        val.textContent = angleDeg + '° (عمودية تقريباً - وقت الظهر)';
+        rl.textContent = `صغيرة جداً (~${reflectionRatio}%)`;
+        pl.textContent = `كبيرة جداً (~${penetrationRatio}%)`;
+        al.textContent = `الزاوية = ${angleDeg}° (عمودية)`;
+        pen.textContent = 'اختراق كبير وانعكاس صغير';
+      } else if (angleDeg <= 35) {
+        val.textContent = angleDeg + '° (مائلة جداً - الشروق/الغروب)';
+        rl.textContent = `كبيرة (~${reflectionRatio}%) كالمرآة!`;
+        pl.textContent = `قليلة (~${penetrationRatio}%)`;
+        al.textContent = `الزاوية = ${angleDeg}° (مائلة)`;
+        pen.textContent = 'انعكاس كبير واختراق أقل';
+      } else {
+        val.textContent = angleDeg + '° (مائلة متوسطة)';
+        rl.textContent = `متوسطة (~${reflectionRatio}%)`;
+        pl.textContent = `متوسطة (~${penetrationRatio}%)`;
+        al.textContent = `الزاوية = ${angleDeg}°`;
+        pen.textContent = 'ينعكس جزء ويخترق الباقي';
+      }
+    }
+    sunAngleSlider.addEventListener('input', (e) => updateSunAngleSimulation(parseInt(e.target.value, 10)));
+    document.getElementById('presetSunriseBtn').addEventListener('click', () => updateSunAngleSimulation(20));
+    document.getElementById('presetNoonBtn').addEventListener('click', () => updateSunAngleSimulation(90));
+
+    // ===== SIM 3 =====
+    const depthSlider = document.getElementById('depthSlider');
+    function lightRemaining(depth) {
+      // textbook: >50% absorbed by 10 m, ~99% absorbed by 100 m (clear water)
+      if (depth <= 0) return 100;
+      if (depth <= 10) return 100 * Math.exp(-0.075 * depth);
+      return 100 * Math.exp(-0.075 * 10) * Math.exp(-0.0428 * (depth - 10));
+    }
+
+    function updateDiverSimulation(depthMeters) {
+      const d = parseFloat(depthMeters);
+      depthSlider.value = d;
+      const effectiveDepth = d * (isClearWater ? 1 : 4.5);
+      const isCm = d > 0 && d < 1;
+
+      document.getElementById('depthDisplayBadge').textContent = isCm ? '10 cm' : `${d} m`;
+
+      const remPct = lightRemaining(effectiveDepth);
+      document.getElementById('remainingLightPct').textContent =
+        remPct >= 10 ? Math.round(remPct) + '%' : remPct >= 0.5 ? remPct.toFixed(1) + '%' : '< 0.5%';
+
+      document.getElementById('irStatusText').textContent = d === 0 ? 'موجودة على السطح فقط' : 'مُمتصة بالكامل تقريباً (تُمتص حتى 10 cm)';
+
+      const heights = {
+        barRed: 0.26, barOrange: 0.16, barYellow: 0.09, barGreen: 0.055, barBlue: 0.025, barIndigo: 0.032, barViolet: 0.038
+      };
+      let redH = 0;
+      Object.keys(heights).forEach((id) => {
+        const h = Math.max(0, Math.round(100 * Math.exp(-heights[id] * effectiveDepth)));
+        if (id === 'barRed') redH = h;
+        document.getElementById(id).style.height = h + '%';
+      });
+
+      const bloodDot = document.getElementById('bloodColorDot');
+      const bloodLabel = document.getElementById('bloodColorLabel');
+      if (redH > 25) {
+        bloodDot.className = 'w-3.5 h-3.5 rounded-full inline-block bg-red-600 border border-white';
+        bloodLabel.textContent = 'أحمر طبيعي (لتوافر الضوء الأحمر)';
+      } else {
+        bloodDot.className = 'w-3.5 h-3.5 rounded-full inline-block bg-emerald-950 border border-white';
+        bloodLabel.textContent = 'أسود أو أخضر غامق! (لغياب الأحمر)';
+      }
+
+      document.getElementById('diverDepthTitle').textContent = isCm ? 'الغواص عند عمق 10 cm من السطح' : d === 0 ? 'الغواص عند السطح' : `الغواص على عمق ${d} متر`;
+
+      const zone = document.getElementById('oceanZoneBadge');
+      const obs = document.getElementById('diverObservationText');
+      const note = document.getElementById('depthScientificNote');
+      if (d <= 0.2) {
+        zone.textContent = 'المنطقة المضاءة (السطحية)';
+        obs.textContent = d === 0 ? 'عند السطح تصل كل الألوان والأشعة تحت الحمراء، وكلما نزلت تقل الشدة.' : 'هنا عند عمق 10 cm تُمتص الأشعة تحت الحمراء بالكامل تقريباً لأن طولها الموجي كبير وطاقتها قليلة!';
+        note.textContent = '📌 الكتاب ص 156: الأشعة تحت الحمراء تُمتص بالكامل تقريباً حتى عمق 10 cm من السطح.';
+      } else if (d >= 8 && d <= 12 && isClearWater) {
+        zone.textContent = 'المنطقة المضاءة (عمق 10m)';
+        obs.textContent = 'عند عمق 10 متر يُمتص أكثر من 50% من طاقة أشعة الضوء المرئي الساقطة على السطح!';
+        note.textContent = '📌 الكتاب ص 156: عند عمق 10 m يُمتص أكثر من 50% من طاقة الضوء المرئي الساقطة على السطح.';
+      } else if (d >= 13 && d <= 25) {
+        zone.textContent = 'المنطقة المضاءة (السطحية)';
+        obs.textContent = isClearWater
+          ? 'لو جُرح غواص على عمق 15m سيظهر دمه باللون الأسود أو الأخضر الغامق لأن الموجات الحمراء امتصت فوق ولا يوجد ضوء أحمر ينعكس من الدم لعينه!'
+          : 'في المياه العكرة بالرواسب والطين، يُمتص 99% من الضوء عند عمق 20m أو أقل!';
+        note.textContent = '📌 سؤال هامش ص 156: لو جُرح غواص على عمق 15m سيظهر دمه باللون الأسود أو الأخضر الغامق لامتصاص الطول الموجي الأحمر في الأمتار الأولى.';
+      } else if (d >= 90 && d <= 115 && isClearWater) {
+        zone.textContent = 'نهاية منطقة التمثيل الضوئي (100m)';
+        obs.textContent = 'عند عمق 100m في المياه الاستوائية الصافية يُمتص حوالي 99% من طاقة الضوء المرئي ويتبقى حوالي 1% معظمه في نطاق الضوء الأزرق!';
+        note.textContent = '📌 الكتاب ص 156 و158: عند عمق 100m يتبقى 1% فقط من الضوء (معظمه أزرق)، وهو أقصى عمق تنمو حتى عنده الهائمات النباتية والطحالب في المياه الصافية.';
+      } else if (d >= 200) {
+        zone.textContent = 'المنطقة الشفقية (> 200m)';
+        obs.textContent = 'الضوء هنا ضعيف جداً؛ لا يكفي لعملية التمثيل الضوئي، فلا تستطيع الطحالب أو الشعاب المرجانية العيش هنا.';
+        note.textContent = '📌 تحت عمق 200m ننتقل للمنطقة الشفقية (200–1000m) ثم المظلمة (> 1000m) حيث ينعدم الضوء الكافي للبناء الضوئي.';
+      } else {
+        zone.textContent = 'المنطقة المضاءة (السطحية)';
+        obs.textContent = 'كلما زاد العمق تقل شدة الإضاءة تدريجياً، وتمتص الألوان الدافئة أولاً بينما تواصل الألوان الباردة (الأزرق والبنفسجي) الاختراق.';
+        note.textContent = '📌 الألوان الباردة (الأزرق والبنفسجي) ذات الأطوال الموجية القصيرة تخترق لمسافات أعمق وتتشتت فتعطي البحر لونه الأزرق.';
+      }
+    }
+    depthSlider.addEventListener('input', (e) => updateDiverSimulation(e.target.value));
+    document.querySelectorAll('.depth-preset-btn').forEach((btn) => {
+      btn.addEventListener('click', () => updateDiverSimulation(btn.getAttribute('data-depth')));
+    });
+    const WATER_ON = 'px-3 py-1.5 rounded-xl text-xs font-bold text-white shadow transition ';
+    const WATER_OFF = 'px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition';
+    document.getElementById('waterClearBtn').addEventListener('click', () => {
+      isClearWater = true;
+      document.getElementById('waterClearBtn').className = WATER_ON + 'bg-sky-600';
+      document.getElementById('waterTurbidBtn').className = WATER_OFF;
+      document.getElementById('oceanWaterTypeBadge').textContent = 'مياه استوائية صافية';
+      updateDiverSimulation(depthSlider.value);
+    });
+    document.getElementById('waterTurbidBtn').addEventListener('click', () => {
+      isClearWater = false;
+      document.getElementById('waterTurbidBtn').className = WATER_ON + 'bg-emerald-700';
+      document.getElementById('waterClearBtn').className = WATER_OFF;
+      document.getElementById('oceanWaterTypeBadge').textContent = 'مياه ساحلية عكرة بالرواسب';
+      updateDiverSimulation(depthSlider.value);
+    });
+
+    // ===== SIM 4 =====
+    document.getElementById('coralShallowBtn').addEventListener('click', () => {
+      document.getElementById('coralExperimentCard').className = 'lg:col-span-5 p-6 rounded-3xl bg-gradient-to-br from-emerald-600 to-teal-800 text-white space-y-3 transition-all duration-500';
+      document.getElementById('coralExpBadge').textContent = 'الحالة الحالية: مياه ضحلة دافئة استوائية';
+      document.getElementById('coralStatusEmoji').textContent = '🪸✨';
+      document.getElementById('coralExpTitle').textContent = 'ازدهار المرجان والطحالب التكافلية معاً';
+      document.getElementById('coralExpDesc').textContent = 'يتوفر الإشعاع الشمسي على مدار السنة في المياه الدافئة الضحلة قرب خط الاستواء، فتقوم الطحالب بالتمثيل الضوئي وتنتج الغذاء وغاز الأكسجين للمرجان.';
+    });
+    document.getElementById('coralDeepBtn').addEventListener('click', () => {
+      document.getElementById('coralExperimentCard').className = 'lg:col-span-5 p-6 rounded-3xl bg-gradient-to-br from-slate-800 to-rose-950 text-white space-y-3 transition-all duration-500';
+      document.getElementById('coralExpBadge').textContent = '⚠️ تجربة النقل إلى عمق 300 متر (منطقة شفقية)';
+      document.getElementById('coralStatusEmoji').textContent = '🥀🌑';
+      document.getElementById('coralExpTitle').textContent = 'موت الطحالب التكافلية وبالتالي موت المرجان!';
+      document.getElementById('coralExpDesc').textContent = 'الجواب النموذجي (ص 158): عند عمق 300 متر لا يصل ضوء الشمس الكافي، فتموت الطحالب لتوقفها عن التمثيل الضوئي، وبالتالي سيموت المرجان المعتمد عليها في الغذاء والأكسجين!';
+    });
+
+    // ===== POLAR =====
+    document.getElementById('polarWinterBtn').addEventListener('click', () => {
+      document.getElementById('polarWinterBtn').className = 'px-2.5 py-1 rounded-lg text-xs font-bold bg-sky-600 text-white';
+      document.getElementById('polarSummerBtn').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300';
+      document.getElementById('polarStep1').innerHTML = '1️⃣ خلال فترات <strong>الشتاء في المناطق القطبية</strong>: يكون الإشعاع الشمسي <strong>منخفضاً أو معدوماً</strong>.';
+      document.getElementById('polarStep2').innerHTML = '2️⃣ النتيجة المباشرة: <strong>تقل بشكل كبير معدلات التمثيل الضوئي</strong> للكائنات البحرية ذاتية التغذية (الهائمات النباتية والطحالب).';
+      document.getElementById('polarStep3').innerHTML = '3️⃣ الأثر البيئي: <strong>يتأثر سلباً توافر الغذاء</strong> للكائنات البحرية ويحدث اضطراب في التوازن البيئي.';
+    });
+    document.getElementById('polarSummerBtn').addEventListener('click', () => {
+      document.getElementById('polarSummerBtn').className = 'px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500 text-white';
+      document.getElementById('polarWinterBtn').className = 'px-2.5 py-1 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300';
+      document.getElementById('polarStep1').innerHTML = '1️⃣ خلال فترات <strong>الصيف القطبي</strong>: يتوفر الإشعاع الشمسي لفترات أطول.';
+      document.getElementById('polarStep2').innerHTML = '2️⃣ النتيجة المباشرة: <strong>تزداد معدلات التمثيل الضوئي</strong> للهائمات النباتية والطحالب.';
+      document.getElementById('polarStep3').innerHTML = '3️⃣ الأثر البيئي: <strong>يزداد توافر الغذاء</strong> وتزدهر السلاسل الغذائية البحرية.';
+    });
+
+    // ===== INLINE QUIZZES =====
+    const inlineExplanations = {
+      q19_1: 'لأن الأشعة عندما تسقط عمودية على سطح الماء (الزاوية المحصورة بين الشعاع والسطح = 90°) تكون كمية الضوء المنعكسة أقل ما يمكن، وكمية الضوء التي تخترق الماء أكبر ما يمكن.',
+      q19_2: 'لأن الطول الموجي 1000 nm يقع في نطاق الأشعة تحت الحمراء (أكبر من 700 nm)، والأشعة تحت الحمراء تُمتص بالكامل تقريباً في أول 10 cm من سطح الماء قبل أي ضوء مرئي.',
+      q20_1: 'لأن الهائمات النباتية (الفيتوبلانكتون) والطحالب كائنات منتجة ذاتية التغذية تقوم بعملية التمثيل الضوئي وتشكّل قاعدة الغذاء الأساسية لجميع السلاسل الغذائية البحرية (أما الشعاب المرجانية والأسماك فهي كائنات حيوانية).',
+      q20_2: 'لأن أعماق المحيط (المنطقة المظلمة) لا يصل إليها ضوء الشمس أصلاً طوال العام، وبالتالي فإن نشاط أسماك الأعماق هو الأقل تأثراً بتغير شدة الإشعاع الشمسي خلال الفصول.'
+    };
+    document.querySelectorAll('[data-inline-quiz]').forEach((group) => {
+      const quizId = group.getAttribute('data-inline-quiz');
+      const correctOpt = group.getAttribute('data-correct');
+      const feedbackBox = document.getElementById('feedback-' + quizId);
+      group.querySelectorAll('.inline-quiz-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          group.querySelectorAll('.inline-quiz-btn').forEach((b) => b.classList.remove('bg-emerald-600', 'text-white', 'bg-rose-600', 'border-emerald-600', 'border-rose-600'));
+          feedbackBox.classList.remove('hidden');
+          if (btn.getAttribute('data-opt') === correctOpt) {
+            btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+            feedbackBox.className = 'p-3 rounded-xl text-xs font-bold leading-relaxed bg-emerald-50 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200 border border-emerald-300';
+            feedbackBox.innerHTML = '✅ إجابة صحيحة! ' + inlineExplanations[quizId];
+          } else {
+            btn.classList.add('bg-rose-600', 'text-white', 'border-rose-600');
+            feedbackBox.className = 'p-3 rounded-xl text-xs font-bold leading-relaxed bg-rose-50 text-rose-900 dark:bg-rose-950/60 dark:text-rose-200 border border-rose-300';
+            feedbackBox.innerHTML = '❌ إجابة غير صحيحة، حاول مرة أخرى!';
+          }
+        });
+      });
+    });
+
+    // ===== FLASHCARDS =====
+    const flashcardsData = [
+      { tag: 'ص 155 • مفهوم أساسي', q: 'ما المقصود بالموجات الكهرومغناطيسية؟ وكم تبلغ سرعتها في الفراغ؟', a: 'نوع من الموجات يتكون من مجالين متعامدين أحدهما كهربي والآخر مغناطيسي يتذبذبان معاً وفي نفس الطور. تنتشر جميعها في الفراغ بسرعة ثابتة (3 × 10⁸ m/s).' },
+      { tag: 'ص 155 • علاقات رياضية', q: 'ما العلاقة بين التردد (ν) والطول الموجي (λ) وطاقة الموجة (E)؟', a: 'العلاقة بين التردد والطول الموجي عكسية (ν ∝ 1/λ)، بينما العلاقة بين الطاقة والتردد طردية (E ∝ ν). فكلما قل الطول الموجي زاد التردد وزادت الطاقة.' },
+      { tag: 'ص 155 • علل', q: 'لماذا نرى انعكاس الشمس على ماء البحر قوياً كالمرآة وقت الشروق والغروب ولا نراه بنفس القوة وقت الظهر؟', a: 'لأن أشعة الشمس وقت الشروق والغروب تسقط مائلة فتكون كمية الضوء المنعكسة كبيرة، بينما وقت الظهر تسقط عمودية تقريباً (90°) فينعكس جزء صغير ويخترق معظم الضوء الماء.' },
+      { tag: 'ص 156 • أرقام هامة', q: 'ما مصير الأشعة تحت الحمراء وأشعة الضوء المرئي عند عمق 10 cm و10 m و100 m؟', a: '• عند 10 cm: تُمتص الأشعة تحت الحمراء بالكامل تقريباً.\n• عند 10 m: يُمتص أكثر من 50% من طاقة الضوء المرئي.\n• عند 100 m (مياه صافية): يُمتص 99% ويتبقى 1% معظمه في نطاق الضوء الأزرق.' },
+      { tag: 'ص 156 • سؤال الغواص', q: 'إذا جُرح غواص على عمق 15 متراً، بأي لون يظهر دمه؟ ولماذا؟', a: 'يظهر دمه باللون الأسود أو الأخضر الغامق؛ لأن الأطوال الموجية الحمراء (الدافئة الطويلة) تُمتص في الأمتار الأولى من الماء، فلا يوجد ضوء أحمر ينعكس من الدم لعين الغواص.' },
+      { tag: 'ص 156 • علل', q: 'لماذا تبدو مياه البحار والمحيطات باللون الأزرق؟', a: 'لأن الألوان الدافئة (الأحمر والبرتقالي) ذات الأطوال الموجية الطويلة تُمتص في الأمتار الأولى، بينما الألوان الباردة (الأزرق والبنفسجي) ذات الأطوال الموجية القصيرة تخترق لأعماق أكبر وتتشتت داخل جزيئات الماء فتنعكس للعين.' },
+      { tag: 'ص 158 • الكائنات البحرية', q: 'قارن بين عمق تواجد الهائمات النباتية والطحالب في المياه الصافية والمياه العكرة.', a: 'في المياه الصافية تنمو حتى عمق 100 m لوصول الإشعاع الشمسي، أما في المياه العكرة (التي تحتوي على رواسب أو عوالق) فتتواجد أقرب للسطح لسرعة امتصاص الضوء.' },
+      { tag: 'ص 158 • علاقة تكافلية', q: 'اشرح علاقة تبادل المنفعة بين الشعاب المرجانية والطحالب التكافلية.', a: '• المرجان يوفر للطحالب: الحماية + غاز ثاني أكسيد الكربون + العناصر المعدنية (النيتروجين والفوسفور).\n• الطحالب توفر للمرجان: الغذاء + غاز الأكسجين اللازم للتنفس عبر التمثيل الضوئي.' },
+      { tag: 'ص 158 • درجات الحرارة', q: 'اذكر أمثلة للأسماك في المياه الاستوائية الدافئة والمياه الباردة.', a: '• المياه الاستوائية الدافئة: سمكة التونة وسمكة الباراكودا (تحتاج حرارة مرتفعة نسبياً للبقاء والتكاثر).\n• المياه الباردة (البعيدة عن الاستواء): سمكة القد (Cod).' },
+      { tag: 'ص 159 • التيارات المحيطية', q: 'ما هو تيار الخليج (Gulf Stream) وما أثره المناخي والبيئي؟', a: 'تيار محيطي يحمل المياه الدافئة من خط الاستواء نحو شمال المحيط الأطلسي، مما يؤدي إلى اعتدال المناخ في غرب أوروبا ويعزز تنوع الحياة البحرية بها.' },
+      { tag: 'ص 159 • تغير الفصول', q: 'ماذا يحدث في المناطق القطبية خلال فصل الشتاء نتيجة تغير شدة الإشعاع الشمسي؟', a: 'يكون الإشعاع الشمسي منخفضاً أو معدوماً شتاءً ← فتقل بشكل كبير معدلات التمثيل الضوئي للكائنات البحرية ذاتية التغذية ← مما يؤثر على توافر الغذاء للكائنات البحرية.' },
+      { tag: 'ص 158 • ماذا يحدث لو؟', q: 'ماذا يحدث لو تم نقل الشعاب المرجانية للعيش في أعماق المحيط عند 300 متر؟', a: 'ستموت الطحالب التكافلية لتوقف قيامها بعملية التمثيل الضوئي لعدم وصول الضوء الكافي، وبالتالي سيموت المرجان المعتمد عليها في الغذاء والأكسجين.' }
+    ];
+
+    function renderFlashcards() {
+      const container = document.getElementById('flashcardsGrid');
+      container.innerHTML = '';
+      flashcardsData.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'flip-card perspective-1000 h-64 cursor-pointer select-none';
+        card.innerHTML = `
+          <div class="flip-card-inner relative w-full h-full">
+            <div class="flip-card-front absolute inset-0 bg-white dark:bg-slate-900 rounded-3xl p-6 border-2 border-indigo-200 dark:border-slate-700 shadow-sm flex flex-col justify-between">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-800 dark:bg-indigo-900/60 dark:text-indigo-300 text-xs font-bold">${item.tag}</span>
+                <span class="text-xs text-slate-400 font-bold">اضغط للقلب 🔄</span>
+              </div>
+              <h4 class="text-base font-black text-slate-900 dark:text-white leading-snug">${item.q}</h4>
+              <div class="text-xs font-bold text-indigo-600 dark:text-indigo-400">عرض الإجابة النموذجية ⬅️</div>
+            </div>
+            <div class="flip-card-back absolute inset-0 bg-gradient-to-br from-indigo-700 to-slate-900 text-white rounded-3xl p-6 shadow-md flex flex-col justify-between overflow-y-auto">
+              <span class="px-2.5 py-1 rounded-full bg-white/20 text-xs font-bold self-start">✅ الإجابة النموذجية</span>
+              <p class="text-xs sm:text-sm leading-relaxed whitespace-pre-line font-semibold">${item.a}</p>
+              <span class="text-[11px] text-indigo-200">اضغط للعودة للسؤال ↩️</span>
+            </div>
+          </div>`;
+        card.addEventListener('click', () => card.classList.toggle('flipped'));
+        container.appendChild(card);
+      });
+    }
+    document.getElementById('resetFlashcardsBtn').addEventListener('click', () => {
+      document.querySelectorAll('.flip-card').forEach((c) => c.classList.remove('flipped'));
+    });
+
+    // ===== FULL QUIZ =====
+    const fullQuizQuestions = [
+      { q: '1. جميع الموجات الكهرومغناطيسية للإشعاع الشمسي تتفق في الفراغ في:', options: ['الطول الموجي (λ)', 'التردد (ν)', 'سرعة الانتشار (3 × 10⁸ m/s)', 'الطاقة'], correct: 2, exp: 'تنتشر جميع الموجات الكهرومغناطيسية في الفراغ بسرعة ثابتة مقدارها 3 × 10⁸ m/s بينما تختلف في التردد والطول الموجي.' },
+      { q: '2. أي الإشعاعات التالية يمتلك أعلى تردد وأعلى طاقة وأقصر طول موجي في الطيف الكهرومغناطيسي؟', options: ['موجات الراديو', 'الأشعة تحت الحمراء', 'الضوء المرئي', 'أشعة جاما'], correct: 3, exp: 'أشعة جاما في بداية الطيف الكهرومغناطيسي بالكتاب، ولها أعلى تردد وأعلى طاقة وأقصر طول موجي.' },
+      { q: '3. يتراوح الطول الموجي للضوء المرئي بين:', options: ['100 nm إلى 300 nm', '400 nm إلى 700 nm', '700 nm إلى 1000 nm', '10 m إلى 100 m'], correct: 1, exp: 'الضوء المرئي يبدأ من البنفسجي (400 nm) وينتهي عند الأحمر (700 nm).' },
+      { q: '4. تكون كمية الضوء المنعكسة عن سطح الماء أكبر ما يمكن في وقت:', options: ['الظهيرة عندما تكون الأشعة عمودية', 'الشروق والغروب عندما تكون الأشعة مائلة', 'منتصف النهار عند زاوية 90°', 'جميع الأوقات متساوية'], correct: 1, exp: 'وقت الشروق والغروب تسقط أشعة الشمس مائلة على سطح الماء فيكون الانعكاس كبيراً جداً كالمرآة.' },
+      { q: '5. تُمتص الأشعة تحت الحمراء بالكامل تقريباً في الماء حتى عمق:', options: ['10 cm من السطح', '10 m من السطح', '100 m من السطح', '1000 m من السطح'], correct: 0, exp: 'الأشعة تحت الحمراء طولها الموجي كبير وطاقتها قليلة ولذلك تُمتص بالكامل تقريباً حتى عمق 10 cm من السطح.' },
+      { q: '6. عند عمق 100 متر في المياه الاستوائية الصافية يتبقى حوالي 1% فقط من الضوء المرئي، ويكون معظمه في نطاق:', options: ['الضوء الأحمر', 'الضوء البرتقالي', 'الضوء الأزرق', 'الأشعة تحت الحمراء'], correct: 2, exp: 'الألوان الباردة ذات الأطوال الموجية القصيرة مثل الضوء الأزرق هي الأكثر قدرة على اختراق المياه الصافية حتى عمق 100m.' },
+      { q: '7. إذا جُرح غواص عند عمق 15 متراً تحت سطح الماء، فإن دمه يبدو باللون:', options: ['الأحمر الفاتح', 'البرتقالي المضيء', 'الأسود أو الأخضر الغامق', 'الأصفر الذهبي'], correct: 2, exp: 'لأن أطوال الموجات الحمراء تُمتص في الأمتار الأولى فوق، فلا يوجد ضوء أحمر ينعكس من الدم لعين الغواص.' },
+      { q: '8. العلاقة الغذائية بين الشعاب المرجانية والطحالب التي تعيش داخل أنسجتها هي علاقة:', options: ['تطفل', 'افتراس', 'تبادل منفعة (تكافلية)', 'ترمم'], correct: 2, exp: 'علاقة تبادل منفعة (تكافلية) حيث يوفر المرجان الحماية وCO₂ والعناصر المعدنية للطحالب، وتوفر الطحالب الغذاء وO₂ للمرجان.' },
+      { q: '9. أي الأسماك التالية من أسماك المناطق الاستوائية التي تحتاج إلى مياه دافئة للبقاء والتكاثر؟', options: ['سمكة القد فقط', 'سمكة التونة وسمكة الباراكودا', 'أسماك القاع القطبية', 'حيتان القطب المتجمد'], correct: 1, exp: 'ذكر الكتاب ص 158 أن سمكة التونة وسمكة الباراكودا من أمثلة الأسماك الاستوائية في المياه الدافئة، بينما سمكة القد تفضل المياه الباردة.' },
+      { q: '10. يحمل تيار الخليج (Gulf Stream) المياه الدافئة من خط الاستواء نحو شمال المحيط الأطلسي مما يؤدي إلى اعتدال المناخ في:', options: ['أوروبا الغربية', 'القارة القطبية الجنوبية', 'شرق آسيا', 'أستراليا'], correct: 0, exp: 'تيار الخليج يحمل المياه الدافئة من خط الاستواء نحو شمال المحيط الأطلسي فيؤدي إلى اعتدال المناخ في أوروبا الغربية ويعزز تنوع الحياة البحرية بها.' },
+      { q: '11. تعتبر الكائنات الحية التالية مصدر الغذاء الأساسي اللازم لاستمرار السلاسل الغذائية في النظم البيئية البحرية:', options: ['الهائمات النباتية والشعاب المرجانية', 'الهائمات النباتية والطحالب', 'الأسماك الصغيرة والكبيرة', 'القشريات والشعاب المرجانية'], correct: 1, exp: 'الهائمات النباتية (الفيتوبلانكتون) والطحالب كائنات ذاتية التغذية تقوم بالتمثيل الضوئي وتمثل المصدر الأساسي للغذاء في البحار.' },
+      { q: '12. في البيئة البحرية، أي مما يلي يُعد الأقل تأثراً بتغير الفصول خلال العام؟', options: ['معدلات التمثيل الضوئي', 'توافر الغذاء في المياه السطحية', 'ازدهار الشعاب المرجانية', 'نشاط أسماك الأعماق'], correct: 3, exp: 'نشاط أسماك الأعماق هو الأقل تأثراً بتغير الفصول لأن منطقة الأعماق مظلمة طوال العام ولا يصلها الإشعاع الشمسي.' }
+    ];
+    let quizAnswers = {};
+
+    function renderFullQuiz() {
+      const container = document.getElementById('fullQuizContainer');
+      container.innerHTML = '';
+      quizAnswers = {};
+      updateQuizScore();
+      fullQuizQuestions.forEach((item, qIdx) => {
+        const card = document.createElement('div');
+        card.className = 'bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4';
+        let optsHtml = '';
+        item.options.forEach((optText, oIdx) => {
+          optsHtml += `<button type="button" data-q="${qIdx}" data-o="${oIdx}" class="full-quiz-opt text-right p-3.5 rounded-2xl border border-slate-200 dark:border-slate-700 font-bold text-xs sm:text-sm hover:bg-slate-100 dark:hover:bg-slate-800 transition">${optText}</button>`;
+        });
+        card.innerHTML = `
+          <h4 class="font-black text-base md:text-lg text-slate-900 dark:text-white">${item.q}</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5" id="q-opts-${qIdx}">${optsHtml}</div>
+          <div id="q-exp-${qIdx}" class="hidden p-4 rounded-2xl text-xs sm:text-sm font-bold leading-relaxed"></div>`;
+        container.appendChild(card);
+      });
+
+      document.querySelectorAll('.full-quiz-opt').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const qIdx = parseInt(btn.getAttribute('data-q'), 10);
+          const oIdx = parseInt(btn.getAttribute('data-o'), 10);
+          const qo = fullQuizQuestions[qIdx];
+          const optsParent = document.getElementById('q-opts-' + qIdx);
+          const expBox = document.getElementById('q-exp-' + qIdx);
+          quizAnswers[qIdx] = (oIdx === qo.correct);
+          updateQuizScore();
+          optsParent.querySelectorAll('.full-quiz-opt').forEach((b, idx) => {
+            b.classList.remove('bg-emerald-600', 'text-white', 'bg-rose-600', 'border-emerald-600', 'border-rose-600');
+            if (idx === qo.correct) b.classList.add('bg-emerald-600', 'text-white', 'border-emerald-600');
+            else if (idx === oIdx) b.classList.add('bg-rose-600', 'text-white', 'border-rose-600');
+          });
+          expBox.classList.remove('hidden');
+          if (oIdx === qo.correct) {
+            expBox.className = 'p-4 rounded-2xl text-xs sm:text-sm font-bold leading-relaxed bg-emerald-50 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-200 border border-emerald-300';
+            expBox.innerHTML = '✅ إجابة صحيحة! ' + qo.exp;
+          } else {
+            expBox.className = 'p-4 rounded-2xl text-xs sm:text-sm font-bold leading-relaxed bg-rose-50 text-rose-900 dark:bg-rose-950/60 dark:text-rose-200 border border-rose-300';
+            expBox.innerHTML = '❌ إجابة غير صحيحة. التفسير العلمي: ' + qo.exp;
+          }
+        });
+      });
+    }
+    function updateQuizScore() {
+      const c = Object.values(quizAnswers).filter(Boolean).length;
+      document.getElementById('quizScoreDisplay').textContent = `${c} / ${fullQuizQuestions.length}`;
+    }
+    document.getElementById('resetFullQuizBtn').addEventListener('click', renderFullQuiz);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      syncThemeIcon();
+      goToPage(1);
+      drawWave(7);
+      updateSunAngleSimulation(90);
+      updateDiverSimulation(15);
+      renderFlashcards();
+      renderFullQuiz();
+    });
+  </script>
+</body>
+</html>
